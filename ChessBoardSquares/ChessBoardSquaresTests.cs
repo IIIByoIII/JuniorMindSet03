@@ -18,6 +18,12 @@ namespace ChessBoardSquares
       Assert.AreEqual(5, TotalNumberOfSquares(2));
     }
 
+    [TestMethod]
+    public void SquaresForSizeThree()
+    {
+      Assert.AreEqual(14, TotalNumberOfSquares(3));
+    }
+
     int TotalNumberOfSquares (int sizeOfBoard)
     {
       int totalSquares = 0;
