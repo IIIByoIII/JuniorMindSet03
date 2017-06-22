@@ -12,6 +12,34 @@ namespace Prefix
       Assert.AreEqual(4, MinimumLength("aaab", "aaaabbaa"));
     }
 
+    [TestMethod]
+    public void TestForPrefixTripleA()
+    {
+      Assert.AreEqual("aaa", CommonPrefix("aaab", "aaaabbaa"));
+    }
+
+    string CommonPrefix (string stringOne, string stringTwo)
+    {
+      string commonPrefix = "";
+      if (stringOne[0] == stringTwo [0])
+      {
+        commonPrefix += stringOne[0];
+        int minimumLength = MinimumLength(stringOne, stringTwo);
+        for (int i = 1; i < minimumLength; i++)
+        {
+          if (stringOne[i] == stringTwo[i])
+          {
+            commonPrefix += stringOne[i];
+          }
+          else
+          {
+            break;
+          }
+        }
+      }
+      return commonPrefix;
+    }
+
     int MinimumLength (string stringOne, string stringTwo)
     {
       int minimumLength = (stringOne.Length > stringTwo.Length) ? stringTwo.Length : stringOne.Length;
