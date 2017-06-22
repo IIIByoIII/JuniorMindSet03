@@ -7,8 +7,15 @@ namespace Prefix
   public class PrefixTests
   {
     [TestMethod]
-    public void TestMethod1()
+    public void TestForMinimumLenght()
     {
+      Assert.AreEqual(4, MinimumLength("aaab", "aaaabbaa"));
+    }
+
+    int MinimumLength (string stringOne, string stringTwo)
+    {
+      int minimumLength = (stringOne.Length > stringTwo.Length) ? stringTwo.Length : stringOne.Length;
+      return minimumLength;
     }
   }
 }
