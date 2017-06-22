@@ -18,6 +18,12 @@ namespace Prefix
       Assert.AreEqual("aaa", CommonPrefix("aaab", "aaaabbaa"));
     }
 
+    [TestMethod]
+    public void TestForNoPrefix()
+    {
+      Assert.AreEqual("", CommonPrefix("baab", "aaaabbaa"));
+    }
+
     string CommonPrefix (string stringOne, string stringTwo)
     {
       string commonPrefix = "";
