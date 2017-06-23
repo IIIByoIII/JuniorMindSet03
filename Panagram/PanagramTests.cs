@@ -12,6 +12,12 @@ namespace Panagram
       Assert.AreEqual(true, IsPanagram("The quick brown fox jumps over the lazy dog"));
     }
 
+    [TestMethod]
+    public void CheckForNoPanagram()
+    {
+      Assert.AreEqual(false, IsPanagram("The old brown fox jumps over the lazy dog"));
+    }
+
     bool IsPanagram (string inputString)
     {
        string allLetters = "abcdefghijklmnopqrstuvwxyz";
