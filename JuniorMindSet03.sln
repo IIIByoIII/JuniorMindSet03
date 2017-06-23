@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessBoardSquares", "ChessB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prefix", "Prefix\Prefix.csproj", "{657D7914-8A19-4B49-861A-DB6CE4D9753C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panagram", "Panagram\Panagram.csproj", "{921225C6-E18D-4E7D-B98C-3FAC5D64005C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{657D7914-8A19-4B49-861A-DB6CE4D9753C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{657D7914-8A19-4B49-861A-DB6CE4D9753C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{657D7914-8A19-4B49-861A-DB6CE4D9753C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

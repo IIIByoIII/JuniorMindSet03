@@ -33,21 +33,12 @@ namespace Prefix
     string CommonPrefix (string stringOne, string stringTwo)
     {
       string commonPrefix = "";
-      if (stringOne[0] == stringTwo [0])
+      int minimumLength = MinimumLength(stringOne, stringTwo);
+      for (int i = 0; i < minimumLength; i++)
       {
-        commonPrefix += stringOne[0];
-        int minimumLength = MinimumLength(stringOne, stringTwo);
-        for (int i = 1; i < minimumLength; i++)
-        {
-          if (stringOne[i] == stringTwo[i])
-          {
-            commonPrefix += stringOne[i];
-          }
-          else
-          {
-            break;
-          }
-        }
+        if (stringOne[i] != stringTwo[i])
+          break;
+        commonPrefix += stringOne[i];
       }
       return commonPrefix;
     }
