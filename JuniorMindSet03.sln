@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prefix", "Prefix\Prefix.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panagram", "Panagram\Panagram.csproj", "{921225C6-E18D-4E7D-B98C-3FAC5D64005C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelColumns", "ExcelColumns\ExcelColumns.csproj", "{9ABF9818-3608-479F-9474-04A9A979A129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921225C6-E18D-4E7D-B98C-3FAC5D64005C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ABF9818-3608-479F-9474-04A9A979A129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ABF9818-3608-479F-9474-04A9A979A129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ABF9818-3608-479F-9474-04A9A979A129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ABF9818-3608-479F-9474-04A9A979A129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

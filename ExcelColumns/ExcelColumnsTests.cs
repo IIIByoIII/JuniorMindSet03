@@ -7,8 +7,15 @@ namespace ExcelColumns
   public class ExcelColumnsTests
   {
     [TestMethod]
-    public void TestMethod1()
+    public void ColumnF()
     {
+      Assert.AreEqual("F", ExcelColumn(6));
+    }
+
+    string ExcelColumn (int columnNumber)
+    {
+      string allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      return allLetters[columnNumber - 1].ToString();
     }
   }
 }
