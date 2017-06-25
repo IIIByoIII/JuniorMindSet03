@@ -20,8 +20,7 @@ namespace Panagram
 
     bool IsPanagram (string inputString)
     {
-       string allLetters = "abcdefghijklmnopqrstuvwxyz";
-      foreach (char letter in allLetters)
+      for (char letter = 'a'; letter <= 'z'; letter++)
       {
         if (inputString.ToLower().IndexOf(letter) == -1)
           return false;
