@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessBoardSquares", "ChessBoardSquares\ChessBoardSquares.csproj", "{96FD058B-B901-4178-8DC3-CD40D1CEEEA7}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panagram", "Panagram\Panagram.csproj", "{921225C6-E18D-4E7D-B98C-3FAC5D64005C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelColumns", "ExcelColumns\ExcelColumns.csproj", "{9ABF9818-3608-479F-9474-04A9A979A129}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lotto", "Lotto\Lotto.csproj", "{BC0E85F5-4E51-491E-A446-397CB2EAD84F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9ABF9818-3608-479F-9474-04A9A979A129}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ABF9818-3608-479F-9474-04A9A979A129}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ABF9818-3608-479F-9474-04A9A979A129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0E85F5-4E51-491E-A446-397CB2EAD84F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0E85F5-4E51-491E-A446-397CB2EAD84F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0E85F5-4E51-491E-A446-397CB2EAD84F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0E85F5-4E51-491E-A446-397CB2EAD84F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

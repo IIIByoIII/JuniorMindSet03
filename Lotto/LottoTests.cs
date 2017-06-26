@@ -7,8 +7,19 @@ namespace Lotto
   public class LottoTests
   {
     [TestMethod]
-    public void TestMethod1()
+    public void FactorialFour()
     {
+      Assert.AreEqual(24, Factorial(4));
+    }
+
+    int Factorial (int number)
+    {
+      int factorialForNumber = number;
+      for (int i = number; i > 2; i--)
+      {
+        factorialForNumber *= i-1;
+      }
+      return factorialForNumber;
     }
   }
 }
