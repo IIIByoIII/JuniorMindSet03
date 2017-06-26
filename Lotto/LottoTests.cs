@@ -12,14 +12,26 @@ namespace Lotto
       Assert.AreEqual(24, Factorial(4));
     }
 
-    int Factorial (int number)
+    [TestMethod]
+    public void CategoryOne()
     {
-      int factorialForNumber = number;
-      for (int i = number; i > 2; i--)
+      Assert.AreEqual(13983816d, CalculateChance(6, 49), 1d);
+    }
+
+    double Factorial (double number)
+    {
+      double factorialForNumber = number;
+      for (double i = number; i > 2; i--)
       {
         factorialForNumber *= i-1;
       }
       return factorialForNumber;
+    }
+
+    double CalculateChance (double maxNumbers, double totalNumbers)
+    {
+      double chance = Factorial(totalNumbers) / Factorial(maxNumbers) / Factorial(totalNumbers - maxNumbers);
+      return chance;
     }
   }
 }
