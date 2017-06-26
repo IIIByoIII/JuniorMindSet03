@@ -18,19 +18,23 @@ namespace ExcelColumns
       Assert.AreEqual("AF", ExcelColumn(32));
     }
 
+    [TestMethod]
+    public void ColumnABF()
+    {
+      Assert.AreEqual("ABF", ExcelColumn(734));
+    }
+
     string allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     string ExcelColumn (int columnNumber)
     {
       string columnLetter = "";
-      while (columnNumber > 26)
+      while (columnNumber > 0)
       {
-        int columnQuotient = columnNumber / 26;
-        int columnRemainder = columnNumber % 26;
-        columnLetter += CurrentColumn(columnQuotient);
-        columnNumber = columnRemainder;
+        columnLetter = columnLetter.Insert(0, CurrentColumn(columnNumber % 26));
+        columnNumber /= 26;
       }
-      return columnLetter += CurrentColumn(columnNumber);
+      return columnLetter;
     }
 
     string CurrentColumn (int columnNumber)
