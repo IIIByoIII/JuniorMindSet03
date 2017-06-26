@@ -24,6 +24,12 @@ namespace ExcelColumns
       Assert.AreEqual("ABF", ExcelColumn(734));
     }
 
+    [TestMethod]
+    public void ColumnCIYY()
+    {
+      Assert.AreEqual("CIYY", ExcelColumn(59487));
+    }
+
     string allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     string ExcelColumn (int columnNumber)
