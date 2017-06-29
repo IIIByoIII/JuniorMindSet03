@@ -15,7 +15,7 @@ namespace Lotto
     [TestMethod]
     public void CategoryOne6of49()
     {
-      Assert.AreEqual(13983816d, CalculateChance(6, 49), 1d);
+      Assert.AreEqual(13983816d, WinningChance(6, 6, 49), 1d);
     }
 
     [TestMethod]
@@ -48,8 +48,12 @@ namespace Lotto
 
     double WinningChance(double winningNumbers, double maxNumbers, double totalNumbers)
     {
-      double winChance = CalculateChance(winningNumbers, maxNumbers) * CalculateChance((maxNumbers - winningNumbers), (totalNumbers - maxNumbers)) / CalculateChance(maxNumbers, totalNumbers);
-      return (1 / winChance);
+      double winChance;
+      if (winningNumbers != maxNumbers)
+        winChance = 1 / (CalculateChance(winningNumbers, maxNumbers) * CalculateChance((maxNumbers - winningNumbers), (totalNumbers - maxNumbers)) / CalculateChance(maxNumbers, totalNumbers));
+      else
+        winChance = CalculateChance(winningNumbers, totalNumbers);
+      return winChance;
     }
   }
 }
