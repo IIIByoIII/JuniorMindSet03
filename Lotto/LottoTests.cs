@@ -18,6 +18,12 @@ namespace Lotto
       Assert.AreEqual(13983816d, CalculateChance(6, 49), 1d);
     }
 
+    [TestMethod]
+    public void CategoryTwo()
+    {
+      Assert.AreEqual(54200.8d, WinningChance(5, 6, 49), 1d);
+    }
+
     double Factorial (double number)
     {
       double factorialForNumber = number;
@@ -32,6 +38,12 @@ namespace Lotto
     {
       double chance = Factorial(totalNumbers) / Factorial(maxNumbers) / Factorial(totalNumbers - maxNumbers);
       return chance;
+    }
+
+    double WinningChance(double winningNumbers, double maxNumbers, double totalNumbers)
+    {
+      double winChance = CalculateChance(winningNumbers, maxNumbers) * CalculateChance((maxNumbers - winningNumbers), (totalNumbers - maxNumbers)) / CalculateChance(maxNumbers, totalNumbers);
+      return (1 / winChance);
     }
   }
 }
