@@ -30,6 +30,12 @@ namespace Lotto
       Assert.AreEqual(1032.4d, WinningChance(4, 6, 49), 1d);
     }
 
+    [TestMethod]
+    public void CategoryOne5of40()
+    {
+      Assert.AreEqual(658008d, WinningChance(5, 5, 40), 1d);
+    }
+
     double Factorial (double number)
     {
       double factorialForNumber = number;
