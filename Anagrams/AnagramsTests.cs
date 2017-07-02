@@ -42,6 +42,12 @@ namespace Anagrams
       Assert.AreEqual(10d, AvailableAnagrams("AAABB"));
     }
 
+    [TestMethod]
+    public void AnagramsForAABBCCC()
+    {
+      Assert.AreEqual(210d, AvailableAnagrams("aABbCCc"));
+    }
+
     double Factorial (double number)
     {
       double factorialForNumber = number;
@@ -55,7 +61,7 @@ namespace Anagrams
         return factorialForNumber;
     }
     
-    // calculates the number each letter ocurs and returns the product of the ocurences
+    // calculates the number each letter ocurs and returns the product of factorials of the ocurences
     double LettersRepeatProduct(string inputWord)
     {
       double products = 1d;
@@ -79,6 +85,7 @@ namespace Anagrams
 
     double AvailableAnagrams(string inputWord)
     {
+      inputWord = inputWord.ToLower();
       double numberOfAnagrams = Factorial(inputWord.Length) / LettersRepeatProduct(inputWord);
       return numberOfAnagrams;
     }
