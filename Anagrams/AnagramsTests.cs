@@ -7,9 +7,21 @@ namespace Anagrams
   public class AnagramsTests
   {
     [TestMethod]
+    public void LettersProductABB()
+    {
+      Assert.AreEqual(2d, LettersRepeatProduct("ABB"));
+    }
+
+    [TestMethod]
     public void AnagramsForThreeUnique()
     {
       Assert.AreEqual(6d, AvailableAnagrams("ABC"));
+    }
+
+    [TestMethod]
+    public void AnagramsForThreeCombined()
+    {
+      Assert.AreEqual(3d, AvailableAnagrams("ABB"));
     }
 
     double Factorial (double number)
@@ -19,13 +31,38 @@ namespace Anagrams
       {
         factorialForNumber *= i-1;
       }
-      return factorialForNumber;
+      if (number < 2)
+        return 1d;
+      else
+        return factorialForNumber;
+    }
+    
+    // calculates the number each letter ocurs and returns the product of the ocurences
+    double LettersRepeatProduct(string inputWord)
+    {
+      double products = 1d;
+      while (inputWord.Length > 0)
+      {
+        char currentLetter = inputWord[0];
+        int startIndex = 0;
+        int hitCount = 0;
+        while (true)
+        {
+          startIndex = inputWord.IndexOf(currentLetter, startIndex);
+          if (startIndex < 0)
+            break;
+          hitCount++;
+          inputWord = inputWord.Remove(startIndex, 1);
+        }
+        products *= hitCount;
+      }
+      return products;
     }
 
     double AvailableAnagrams(string inputWord)
     {
-      double inputWordLength = inputWord.Length;
-      return Factorial(inputWordLength);
+      double numberOfAnagrams = Factorial(inputWord.Length) / LettersRepeatProduct(inputWord);
+      return numberOfAnagrams;
     }
   }
 }
