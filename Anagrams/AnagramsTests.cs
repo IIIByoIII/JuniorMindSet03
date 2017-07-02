@@ -30,6 +30,12 @@ namespace Anagrams
       Assert.AreEqual(1d, AvailableAnagrams("BBB"));
     }
 
+    [TestMethod]
+    public void AnagramsForABCDEF()
+    {
+      Assert.AreEqual(720d, AvailableAnagrams("ABCDEF"));
+    }
+
     double Factorial (double number)
     {
       double factorialForNumber = number;
