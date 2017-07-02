@@ -24,6 +24,12 @@ namespace Anagrams
       Assert.AreEqual(3d, AvailableAnagrams("ABB"));
     }
 
+    [TestMethod]
+    public void AnagramsForThreeSame()
+    {
+      Assert.AreEqual(1d, AvailableAnagrams("BBB"));
+    }
+
     double Factorial (double number)
     {
       double factorialForNumber = number;
@@ -61,7 +67,7 @@ namespace Anagrams
 
     double AvailableAnagrams(string inputWord)
     {
-      double numberOfAnagrams = Factorial(inputWord.Length) / LettersRepeatProduct(inputWord);
+      double numberOfAnagrams = Factorial(inputWord.Length) / Factorial(LettersRepeatProduct(inputWord));
       return numberOfAnagrams;
     }
   }
