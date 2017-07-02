@@ -36,6 +36,12 @@ namespace Anagrams
       Assert.AreEqual(720d, AvailableAnagrams("ABCDEF"));
     }
 
+    [TestMethod]
+    public void AnagramsForAAABB()
+    {
+      Assert.AreEqual(10d, AvailableAnagrams("AAABB"));
+    }
+
     double Factorial (double number)
     {
       double factorialForNumber = number;
@@ -66,14 +72,14 @@ namespace Anagrams
           hitCount++;
           inputWord = inputWord.Remove(startIndex, 1);
         }
-        products *= hitCount;
+        products *= Factorial(hitCount);
       }
       return products;
     }
 
     double AvailableAnagrams(string inputWord)
     {
-      double numberOfAnagrams = Factorial(inputWord.Length) / Factorial(LettersRepeatProduct(inputWord));
+      double numberOfAnagrams = Factorial(inputWord.Length) / LettersRepeatProduct(inputWord);
       return numberOfAnagrams;
     }
   }
