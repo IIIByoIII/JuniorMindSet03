@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text.RegularExpressions;
 
 namespace Anagrams
 {
@@ -65,21 +66,16 @@ namespace Anagrams
     double LettersRepeatProduct(string inputWord)
     {
       double products = 1d;
-      while (inputWord.Length > 0)
+      int[] lettersFound = new int[26];
+      int index = 0;
+      for (char letter = 'a'; letter <= 'z'; letter++)
       {
-        char currentLetter = inputWord[0];
-        int startIndex = 0;
-        int hitCount = 0;
-        while (true)
-        {
-          startIndex = inputWord.IndexOf(currentLetter, startIndex);
-          if (startIndex < 0)
-            break;
-          hitCount++;
-          inputWord = inputWord.Remove(startIndex, 1);
-        }
-        products *= Factorial(hitCount);
+        lettersFound[index] = Regex.Matches(inputWord.ToLower(), letter.ToString()).Count;
+        index++;
       }
+      for (int i = 0; i < inputWord.Length; i++)
+        if (lettersFound[i] != 0)
+          products *= Factorial(lettersFound[i]);
       return products;
     }
 
