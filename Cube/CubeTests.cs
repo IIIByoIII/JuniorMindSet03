@@ -7,8 +7,15 @@ namespace Cube
   public class CubeTests
   {
     [TestMethod]
-    public void TestMethod1()
+    public void Ending888CubeOne()
     {
+      Assert.AreEqual(192d, The888EndingCube(1));
+    }
+
+    double The888EndingCube(int nth)
+    {
+      double result = ((250 * (nth - 1)) + 192);
+      return result;
     }
   }
 }
