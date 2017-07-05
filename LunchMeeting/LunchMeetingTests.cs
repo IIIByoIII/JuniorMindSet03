@@ -12,6 +12,12 @@ namespace LunchMeeting
       Assert.AreEqual(12, NextMeeting(6, 4));
     }
 
+    [TestMethod]
+    public void NextMeeting4to5()
+    {
+      Assert.AreEqual(20, NextMeeting(4, 5));
+    }
+
     int NextMeeting (int yourDays, int friendsDays)
     {
       int maxDays = yourDays > friendsDays ? yourDays : friendsDays;
