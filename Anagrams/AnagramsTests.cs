@@ -8,12 +8,6 @@ namespace Anagrams
   public class AnagramsTests
   {
     [TestMethod]
-    public void LettersProductABB()
-    {
-      Assert.AreEqual(2d, LettersRepeatProduct("ABB"));
-    }
-
-    [TestMethod]
     public void AnagramsForThreeUnique()
     {
       Assert.AreEqual(6d, AvailableAnagrams("ABC"));
@@ -63,17 +57,16 @@ namespace Anagrams
     }
     
     // calculates the number each letter ocurs and returns the product of factorials of the ocurences
-    double LettersRepeatProduct(string inputWord)
+    double LettersFactorialProduct(string inputWord)
     {
       double products = 1d;
       int[] lettersFound = new int[26];
-      int index = 0;
-      for (char letter = 'a'; letter <= 'z'; letter++)
-      {
-        lettersFound[index] = Regex.Matches(inputWord.ToLower(), letter.ToString()).Count;
-        index++;
-      }
       for (int i = 0; i < inputWord.Length; i++)
+      {
+        int letter = (inputWord[i] - 'a');
+        lettersFound[letter]++;
+      }
+      for (int i = 0; i < 26; i++)
         if (lettersFound[i] != 0)
           products *= Factorial(lettersFound[i]);
       return products;
@@ -82,7 +75,7 @@ namespace Anagrams
     double AvailableAnagrams(string inputWord)
     {
       inputWord = inputWord.ToLower();
-      double numberOfAnagrams = Factorial(inputWord.Length) / LettersRepeatProduct(inputWord);
+      double numberOfAnagrams = Factorial(inputWord.Length) / LettersFactorialProduct(inputWord);
       return numberOfAnagrams;
     }
   }
