@@ -84,5 +84,20 @@ namespace BaseTwoOperations
           result[i] = 1;
       return result;
     }
+
+    [TestMethod]
+    public void OR26With86()
+    {
+      CollectionAssert.AreEqual(new int[] {0, 1, 0, 1, 1, 1, 1, 0}, BinaryOR(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+    }
+
+    int[] BinaryOR(int[] firstArray, int[] secondArray)
+    {
+      int[] result = new int[8];
+      for (int i = 0; i < 8; i++)
+        if ((firstArray[i] == 1) || (secondArray[i] == 1))
+          result[i] = 1;
+      return result;
+    }
   }
 }
