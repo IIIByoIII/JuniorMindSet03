@@ -110,5 +110,20 @@ namespace BaseTwoOperations
     {
       return BinaryNOT(BinaryOR(firstArray, secondArray));
     }
+
+    [TestMethod]
+    public void XOR26With86()
+    {
+      CollectionAssert.AreEqual(new int[] {0, 1, 0, 0, 1, 1, 0, 0}, BinaryXOR(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+    }
+
+    int[] BinaryXOR(int[] firstArray, int[] secondArray)
+    {
+      int[] result = new int[8];
+      for (int i = 0; i < 8; i++)
+        if (firstArray[i] != secondArray[i])
+          result[i] = 1;
+      return result;
+    }
   }
 }
