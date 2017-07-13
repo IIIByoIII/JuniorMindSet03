@@ -206,5 +206,35 @@ namespace BaseTwoOperations
       }
       return result;
     }
+
+    [TestMethod]
+    public void Substract26From86InB2()
+    {
+      CollectionAssert.AreEqual(new int[] {0, 0, 1, 1, 1, 1, 0, 0}, Substract(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}, 2));
+    }
+
+    int[] Substract(int[] firstArray, int[] secondArray, int theBase)
+    {
+      int[] result = new int[8];
+      int overValue = 0;
+      int indexValue;
+      int finalValue;
+      for (int i = 7; i >= 0 ; i--)
+      {
+        indexValue = secondArray[i] - firstArray[i] - overValue;
+        if (indexValue < 0)
+        {
+          finalValue = theBase + indexValue;
+          overValue = 1;
+        }
+        else
+        {
+          finalValue = indexValue;
+          overValue = 0;
+        }
+        result[i] = finalValue;
+      }
+      return result;
+    }
   }
 }
