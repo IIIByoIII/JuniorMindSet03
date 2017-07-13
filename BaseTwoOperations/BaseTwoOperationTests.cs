@@ -69,5 +69,20 @@ namespace BaseTwoOperations
         numberArray[i] = (numberArray[i] == 0) ? 1 : 0;
       return numberArray;
     }
+
+    [TestMethod]
+    public void AND26With86()
+    {
+      CollectionAssert.AreEqual(new int[] {0, 0, 0, 1, 0, 0, 1, 0}, BinaryAND(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+    }
+
+    int[] BinaryAND(int[] firstArray, int[] secondArray)
+    {
+      int[] result = new int[8];
+      for (int i = 0; i < 8; i++)
+        if ((firstArray[i] == 1) && (secondArray[i] == 1))
+          result[i] = 1;
+      return result;
+    }
   }
 }
