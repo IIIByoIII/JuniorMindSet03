@@ -155,5 +155,20 @@ namespace BaseTwoOperations
           result[i - bits] = 1;
       return result;
     }
+
+    [TestMethod]
+    public void Is26LessThan86InB2()
+    {
+      Assert.AreEqual(true, LessThan(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+    }
+
+    bool LessThan(int[] firstArray, int[] secondArray)
+    {
+      bool result = false;
+      for (int i = 7; i >= 0; i--)
+        if (firstArray[i] != secondArray[i])
+          result = firstArray[i] < secondArray[i] ? true : false;
+      return result;
+    }
   }
 }
