@@ -56,5 +56,18 @@ namespace BaseTwoOperations
       }
       return result;
     }
+
+    [TestMethod]
+    public void NOT26()
+    {
+      CollectionAssert.AreEqual(new int[] {1, 1, 1, 0, 0, 1, 0, 1}, BinaryNOT(new int[] {0, 0, 0, 1, 1, 0, 1, 0}));
+    }
+
+    int[] BinaryNOT(int[] numberArray)
+    {
+      for (int i = 0; i < 8; i++)
+        numberArray[i] = (numberArray[i] == 0) ? 1 : 0;
+      return numberArray;
+    }
   }
 }
