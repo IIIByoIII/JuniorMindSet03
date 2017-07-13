@@ -176,5 +176,35 @@ namespace BaseTwoOperations
           result = firstArray[i] < secondArray[i] ? true : false;
       return result;
     }
+
+    [TestMethod]
+    public void Add26With86InB2()
+    {
+      CollectionAssert.AreEqual(new int[] {0, 1, 1, 1, 0, 0, 0, 0}, Add(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}, 2));
+    }
+
+    int[] Add(int[] firstArray, int[] secondArray, int theBase)
+    {
+      int[] result = new int[8];
+      int overValue = 0;
+      int indexValue;
+      int finalValue;
+      for (int i = 7; i >= 0 ; i--)
+      {
+        indexValue = firstArray[i] + secondArray[i] + overValue;
+        if (indexValue >= theBase)
+        {
+          finalValue = indexValue - theBase;
+          overValue = 1;
+        }
+        else
+        {
+          finalValue = indexValue;
+          overValue = 0;
+        }
+        result[i] = finalValue;
+      }
+      return result;
+    }
   }
 }
