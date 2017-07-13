@@ -99,5 +99,16 @@ namespace BaseTwoOperations
           result[i] = 1;
       return result;
     }
+
+    [TestMethod]
+    public void NOR26With86()
+    {
+      CollectionAssert.AreEqual(new int[] {1, 0, 1, 0, 0, 0, 0, 1}, BinaryNOR(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+    }
+
+    int[] BinaryNOR(int[] firstArray, int[] secondArray)
+    {
+      return BinaryNOT(BinaryOR(firstArray, secondArray));
+    }
   }
 }
