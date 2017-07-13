@@ -162,6 +162,12 @@ namespace BaseTwoOperations
       Assert.AreEqual(true, LessThan(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
     }
 
+    [TestMethod]
+    public void Is27LessThan26InB2()
+    {
+      Assert.AreEqual(false, LessThan(new int[] {0, 0, 0, 1, 1, 0, 1, 1}, new int[] {0, 0, 0, 1, 1, 0, 1, 0}));
+    }
+
     bool LessThan(int[] firstArray, int[] secondArray)
     {
       bool result = false;
