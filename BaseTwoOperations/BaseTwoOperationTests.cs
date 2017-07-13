@@ -28,5 +28,33 @@ namespace BaseTwoOperations
       }
       return result;
     }
+
+    [TestMethod]
+    public void Convert26FromB2toB10()
+    {
+      Assert.AreEqual(26, ChangeToBaseTen(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, 2));
+    }
+
+    int IntPow(int nr, int pow)
+    {
+      int result = 1;
+      if (pow == 0)
+        return 1;
+      for (int i = 0; i < pow; i++)
+        result *= nr;
+      return result;
+    }
+
+    int ChangeToBaseTen(int[] numberArray, int theBase)
+    {
+      int result = 0;
+      int j = numberArray.Length - 1;
+      for (int i = 0; i < numberArray.Length; i++)
+      {
+        result += numberArray[i] * IntPow(theBase, j);
+        j--;
+      }
+      return result;
+    }
   }
 }
