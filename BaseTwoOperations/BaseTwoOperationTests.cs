@@ -236,5 +236,43 @@ namespace BaseTwoOperations
       }
       return result;
     }
+
+    [TestMethod]
+    public void ProductOf26And6InB2()
+    {
+      CollectionAssert.AreEqual(new int[] {1, 0, 0, 1, 1, 1, 0, 0}, Product(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 0, 0, 0, 0, 1, 1, 0}, 2));
+    }
+
+    int[] Product(int[] firstArray, int[] secondArray, int theBase)
+    {
+      int[] result = new int[8];
+      int[] previousProduct = new int[8];
+      int overValue = 0;
+      int indexValue;
+      int finalValue;
+      for (int i = 7; i >= 0 ; i--)
+      {
+        Array.Clear(previousProduct, 0, 8);
+        for (int j = 7; j >= 0 ; j--)
+        {
+          indexValue = firstArray[i] * secondArray[j] + overValue;
+          if (indexValue >= theBase)
+          {
+            finalValue = indexValue % theBase;
+            overValue = indexValue / theBase;
+          }
+          else
+          {
+            finalValue = indexValue;
+            overValue = 0;
+          }
+          if ((j - (7 - i)) < 0)
+            break;
+          previousProduct[j - (7 - i)] = finalValue;
+        }
+        result = Add(result, previousProduct, theBase);
+      }
+      return result;
+    }
   }
 }
