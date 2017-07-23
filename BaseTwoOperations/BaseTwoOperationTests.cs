@@ -10,23 +10,22 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Convert26FromB10toB2()
     {
-      CollectionAssert.AreEqual(new int[8] {0, 0, 0, 1, 1, 0, 1, 0}, ChangeToBase(26, 2));
+      CollectionAssert.AreEqual(new uint[] {1, 1, 0, 1, 0}, ChangeToBase(26, 2));
     }
 
-    int[] ChangeToBase(int number, int theBase)
+    uint[] ChangeToBase(ulong number, uint theBase)
     {
-      int[] result = new int[8];
-      int quotient = number;
-      int remainder;
-      int i = 7;
+      List<uint> result = new List<uint>();
+      ulong quotient = number;
+      uint remainder;
       while (quotient != 0)
       {
-        remainder = quotient % theBase;
+        remainder = (uint) (quotient % theBase);
         quotient /= theBase;
-        result[i] = remainder;
-        i--;
+        result.Add(remainder);
       }
-      return result;
+      result.Reverse();
+      return result.ToArray();
     }
 
     [TestMethod]
