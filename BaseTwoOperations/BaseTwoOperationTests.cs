@@ -59,53 +59,97 @@ namespace BaseTwoOperations
     [TestMethod]
     public void NOT26()
     {
-      CollectionAssert.AreEqual(new int[] {1, 1, 1, 0, 0, 1, 0, 1}, BinaryNOT(new int[] {0, 0, 0, 1, 1, 0, 1, 0}));
+      CollectionAssert.AreEqual(new uint[] {0, 0, 1, 0, 1}, BinaryNOT(ChangeToBase(26, 2)));
     }
 
-    int[] BinaryNOT(int[] numberArray)
+    uint[] BinaryNOT(uint[] numberArray)
     {
-      for (int i = 0; i < 8; i++)
-        numberArray[i] = (numberArray[i] == 0) ? 1 : 0;
+      for (uint i = 0; i < (uint) numberArray.Length; i++)
+        numberArray[i] = (numberArray[i] == 0) ? 1u : 0;
       return numberArray;
     }
 
     [TestMethod]
     public void AND26With86()
     {
-      CollectionAssert.AreEqual(new int[] {0, 0, 0, 1, 0, 0, 1, 0}, BinaryAND(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+      CollectionAssert.AreEqual(new uint[] {0, 0, 1, 0, 0, 1, 0}, BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    int[] BinaryAND(int[] firstArray, int[] secondArray)
+    [TestMethod]
+    public void LongestOf26And86()
     {
-      int[] result = new int[8];
-      for (int i = 0; i < 8; i++)
-        if ((firstArray[i] == 1) && (secondArray[i] == 1))
-          result[i] = 1;
+      Assert.AreEqual(7, LongestArrayLength(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+    }
+
+    [TestMethod]
+    public void Paded26()
+    {
+      CollectionAssert.AreEqual(new uint[] {0, 0, 0, 1, 1, 0, 1, 0}, PadOrTrimArrayLeft(ChangeToBase(26, 2), 8));
+    }
+
+    int LongestArrayLength(uint[] firstArray, uint[] secondArray)
+    {
+      int result;
+      result = (firstArray.Length > secondArray.Length) ? firstArray.Length : secondArray.Length;
+      return result;
+    }
+
+    uint[] PadOrTrimArrayLeft(uint[] theArray, int theLength)
+    {
+      uint[] result = new uint[theLength];
+      int j = theArray.Length - 1;
+      for (int i = theLength - 1; i >= 0; i--)
+      {
+        if (j < 0)
+          result[i] = 0;
+        else
+          result[i] = theArray[j];
+        j--;
+      }
+      return result;
+    }
+
+    uint[] BinaryAND(uint[] firstArray, uint[] secondArray)
+    {
+      int longest = LongestArrayLength(firstArray, secondArray);
+      uint[] firstPadedArray = new uint[longest]; 
+      uint[] secondPadedArray = new uint[longest];
+      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
+      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
+      uint[] result = new uint[longest];
+      for (int i = 0; i < longest; i++)
+        if ((firstPadedArray[i] == 1u) && (secondPadedArray[i] == 1u))
+          result[i] = 1u;
       return result;
     }
 
     [TestMethod]
     public void OR26With86()
     {
-      CollectionAssert.AreEqual(new int[] {0, 1, 0, 1, 1, 1, 1, 0}, BinaryOR(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+      CollectionAssert.AreEqual(new uint[] {1, 0, 1, 1, 1, 1, 0}, BinaryOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    int[] BinaryOR(int[] firstArray, int[] secondArray)
+    uint[] BinaryOR(uint[] firstArray, uint[] secondArray)
     {
-      int[] result = new int[8];
-      for (int i = 0; i < 8; i++)
-        if ((firstArray[i] == 1) || (secondArray[i] == 1))
-          result[i] = 1;
+      int longest = LongestArrayLength(firstArray, secondArray);
+      uint[] firstPadedArray = new uint[longest]; 
+      uint[] secondPadedArray = new uint[longest];
+      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
+      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
+      uint[] result = new uint[longest];
+      for (int i = 0; i < longest; i++)
+        if ((firstPadedArray[i] == 1) || (secondPadedArray[i] == 1))
+          result[i] = 1u;
       return result;
     }
 
     [TestMethod]
     public void NOR26With86()
     {
-      CollectionAssert.AreEqual(new int[] {1, 0, 1, 0, 0, 0, 0, 1}, BinaryNOR(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+      CollectionAssert.AreEqual(new uint[] {0, 1, 0, 0, 0, 0, 1}, BinaryNOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    int[] BinaryNOR(int[] firstArray, int[] secondArray)
+    uint[] BinaryNOR(uint[] firstArray, uint[] secondArray)
     {
       return BinaryNOT(BinaryOR(firstArray, secondArray));
     }
@@ -113,15 +157,20 @@ namespace BaseTwoOperations
     [TestMethod]
     public void XOR26With86()
     {
-      CollectionAssert.AreEqual(new int[] {0, 1, 0, 0, 1, 1, 0, 0}, BinaryXOR(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+      CollectionAssert.AreEqual(new uint[] {1, 0, 0, 1, 1, 0, 0}, BinaryXOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    int[] BinaryXOR(int[] firstArray, int[] secondArray)
+    uint[] BinaryXOR(uint[] firstArray, uint[] secondArray)
     {
-      int[] result = new int[8];
-      for (int i = 0; i < 8; i++)
-        if (firstArray[i] != secondArray[i])
-          result[i] = 1;
+      int longest = LongestArrayLength(firstArray, secondArray);
+      uint[] firstPadedArray = new uint[longest]; 
+      uint[] secondPadedArray = new uint[longest];
+      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
+      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
+      uint[] result = new uint[longest];
+      for (int i = 0; i < longest; i++)
+        if (firstPadedArray[i] != secondPadedArray[i])
+          result[i] = 1u;
       return result;
     }
 
