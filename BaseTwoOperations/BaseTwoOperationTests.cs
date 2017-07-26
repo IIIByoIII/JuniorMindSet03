@@ -192,15 +192,15 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Bitshift26Left2()
     {
-      CollectionAssert.AreEqual(new int[] {0, 1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, 2));
+      CollectionAssert.AreEqual(new uint[] {1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(ChangeToBase(26, 2), 2));
     }
 
-    int[] BitshiftLeft(int[] numberArray, int bits)
+    uint[] BitshiftLeft(uint[] numberArray, int bits)
     {
-      int[] result = new int[8];
-      for (int i = bits; i < 8; i++)
-        if (numberArray[i] == 1)
-          result[i - bits] = 1;
+      uint[] result = new uint[numberArray.Length + bits];
+      for (int i = 0; i < numberArray.Length; i++)
+        if (numberArray[i] == 1u)
+          result[i] = 1u;
       return result;
     }
 
