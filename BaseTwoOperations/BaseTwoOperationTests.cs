@@ -177,15 +177,15 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Bitshift26Right2()
     {
-      CollectionAssert.AreEqual(new int[] {0, 0, 0, 0, 0, 1, 1, 0}, BitshiftRight(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, 2));
+      CollectionAssert.AreEqual(new uint[] {1, 1, 0}, BitshiftRight(ChangeToBase(26, 2), 2));
     }
 
-    int[] BitshiftRight(int[] numberArray, int bits)
+    uint[] BitshiftRight(uint[] numberArray, int bits)
     {
-      int[] result = new int[8];
-      for (int i = 0; i < 8 - bits; i++)
-        if (numberArray[i] == 1)
-          result[i + bits] = 1;
+      uint[] result = new uint[numberArray.Length - bits];
+      for (int i = 0; i < result.Length; i++)
+        if (numberArray[i] == 1u)
+          result[i] = 1u;
       return result;
     }
 
