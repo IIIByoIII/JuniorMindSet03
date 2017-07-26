@@ -207,21 +207,26 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Is26LessThan86InB2()
     {
-      Assert.AreEqual(true, LessThan(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}));
+      Assert.AreEqual(true, LessThan(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
     [TestMethod]
     public void Is27LessThan26InB2()
     {
-      Assert.AreEqual(false, LessThan(new int[] {0, 0, 0, 1, 1, 0, 1, 1}, new int[] {0, 0, 0, 1, 1, 0, 1, 0}));
+      Assert.AreEqual(false, LessThan(ChangeToBase(27, 2), ChangeToBase(26, 2)));
     }
 
-    bool LessThan(int[] firstArray, int[] secondArray)
+    bool LessThan(uint[] firstArray, uint[] secondArray)
     {
       bool result = false;
-      for (int i = 7; i >= 0; i--)
-        if (firstArray[i] != secondArray[i])
-          result = firstArray[i] < secondArray[i] ? true : false;
+      int longest = LongestArrayLength(firstArray, secondArray);
+      uint[] firstPadedArray = new uint[longest]; 
+      uint[] secondPadedArray = new uint[longest];
+      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
+      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
+      for (int i = longest - 1; i >= 0; i--)
+        if (firstPadedArray[i] != secondPadedArray[i])
+          result = firstPadedArray[i] < secondPadedArray[i] ? true : false;
       return result;
     }
 
