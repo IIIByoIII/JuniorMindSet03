@@ -10,10 +10,10 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Convert26FromB10toB2()
     {
-      CollectionAssert.AreEqual(new uint[] {1, 1, 0, 1, 0}, ChangeToBase(26, 2));
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0}, ChangeToBase(26, 2));
     }
 
-    uint[] ChangeToBase(ulong number, uint theBase)
+    List<uint> ChangeToBase(ulong number, uint theBase)
     {
       List<uint> result = new List<uint>();
       ulong quotient = number;
@@ -25,13 +25,13 @@ namespace BaseTwoOperations
         result.Add(remainder);
       }
       result.Reverse();
-      return result.ToArray();
+      return result;
     }
 
     [TestMethod]
     public void Convert26FromB2toB10()
     {
-      Assert.AreEqual(26ul, ChangeToBaseTen(new uint[] {1, 1, 0, 1, 0}, 2));
+      Assert.AreEqual(26ul, ChangeToBaseTen(new List<uint> {1, 1, 0, 1, 0}, 2));
     }
 
     uint UIntPow(uint nr, uint pow)
@@ -44,164 +44,160 @@ namespace BaseTwoOperations
       return result;
     }
 
-    ulong ChangeToBaseTen(uint[] numberArray, uint theBase)
+    ulong ChangeToBaseTen(List<uint> numberArray, uint theBase)
     {
       ulong result = 0;
-      uint j = (uint) numberArray.Length - 1;
-      for (uint i = 0; i < (uint) numberArray.Length; i++)
+      int j = numberArray.Count - 1;
+      for (int i = 0; i < numberArray.Count; i++)
       {
-        result += numberArray[i] * UIntPow(theBase, j);
+        result += numberArray[i] * UIntPow(theBase, (uint) j);
         j--;
       }
       return result;
+    }
+
+    [TestMethod]
+    public void RemoveLeadingZeroes26()
+    {
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0}, TrimLeadigZeroes(new List<uint> {0, 0, 1, 1, 0, 1, 0}));
+    }
+
+    List<uint> TrimLeadigZeroes(List<uint> numberArray)
+    {
+      while (numberArray[0] == 0)
+        numberArray.RemoveAt(0);
+      return numberArray;
     }
 
     [TestMethod]
     public void NOT26()
     {
-      CollectionAssert.AreEqual(new uint[] {0, 0, 1, 0, 1}, BinaryNOT(ChangeToBase(26, 2)));
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 1}, BinaryNOT(ChangeToBase(26, 2)));
     }
 
-    uint[] BinaryNOT(uint[] numberArray)
+    List<uint> BinaryNOT(List<uint> numberArray)
     {
-      for (uint i = 0; i < (uint) numberArray.Length; i++)
+      for (int i = 0; i < numberArray.Count; i++)
         numberArray[i] = (numberArray[i] == 0) ? 1u : 0;
-      return numberArray;
+      return TrimLeadigZeroes(numberArray);
     }
 
     [TestMethod]
     public void AND26With86()
     {
-      CollectionAssert.AreEqual(new uint[] {0, 0, 1, 0, 0, 1, 0}, BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 0}, BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    [TestMethod]
-    public void LongestOf26And86()
+    List<uint> BinaryAND(List<uint> firstArray, List<uint> secondArray)
     {
-      Assert.AreEqual(7, LongestArrayLength(ChangeToBase(26, 2), ChangeToBase(86, 2)));
-    }
-
-    [TestMethod]
-    public void Paded26()
-    {
-      CollectionAssert.AreEqual(new uint[] {0, 0, 0, 1, 1, 0, 1, 0}, PadOrTrimArrayLeft(ChangeToBase(26, 2), 8));
-    }
-
-    int LongestArrayLength(uint[] firstArray, uint[] secondArray)
-    {
-      int result;
-      result = (firstArray.Length > secondArray.Length) ? firstArray.Length : secondArray.Length;
-      return result;
-    }
-
-    uint[] PadOrTrimArrayLeft(uint[] theArray, int theLength)
-    {
-      uint[] result = new uint[theLength];
-      int j = theArray.Length - 1;
-      for (int i = theLength - 1; i >= 0; i--)
+      firstArray.Reverse();
+      secondArray.Reverse();
+      List<uint> result = new List<uint>();
+      int shortest = firstArray.Count < secondArray.Count ? firstArray.Count : secondArray.Count;
+      for (int i = 0 ; i < shortest; i++)
       {
-        if (j < 0)
-          result[i] = 0;
+        if ((firstArray[i] == 1u) && (secondArray[i] == 1u))
+          result.Add(1u);
         else
-          result[i] = theArray[j];
-        j--;
+          result.Add(0);
       }
-      return result;
-    }
-
-    uint[] BinaryAND(uint[] firstArray, uint[] secondArray)
-    {
-      int longest = LongestArrayLength(firstArray, secondArray);
-      uint[] firstPadedArray = new uint[longest]; 
-      uint[] secondPadedArray = new uint[longest];
-      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
-      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
-      uint[] result = new uint[longest];
-      for (int i = 0; i < longest; i++)
-        if ((firstPadedArray[i] == 1u) && (secondPadedArray[i] == 1u))
-          result[i] = 1u;
-      return result;
+      result.Reverse();
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
     public void OR26With86()
     {
-      CollectionAssert.AreEqual(new uint[] {1, 0, 1, 1, 1, 1, 0}, BinaryOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 1, 1, 1, 1, 0}, BinaryOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    uint[] BinaryOR(uint[] firstArray, uint[] secondArray)
+    List<uint> BinaryOR(List<uint> firstArray, List<uint> secondArray)
     {
-      int longest = LongestArrayLength(firstArray, secondArray);
-      uint[] firstPadedArray = new uint[longest]; 
-      uint[] secondPadedArray = new uint[longest];
-      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
-      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
-      uint[] result = new uint[longest];
+      firstArray.Reverse();
+      secondArray.Reverse();
+      List<uint> result = new List<uint>();
+      int longest = firstArray.Count > secondArray.Count ? firstArray.Count : secondArray.Count;
+      while (firstArray.Count < longest)
+        firstArray.Add(0);
+      while (secondArray.Count < longest)
+        secondArray.Add(0);
       for (int i = 0; i < longest; i++)
-        if ((firstPadedArray[i] == 1) || (secondPadedArray[i] == 1))
-          result[i] = 1u;
-      return result;
+      {
+        if ((firstArray[i] == 1u) || (secondArray[i] == 1u))
+          result.Add(1u);
+        else
+          result.Add(0);
+      }
+      result.Reverse();
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
     public void NOR26With86()
     {
-      CollectionAssert.AreEqual(new uint[] {0, 1, 0, 0, 0, 0, 1}, BinaryNOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 0, 0, 1}, BinaryNOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    uint[] BinaryNOR(uint[] firstArray, uint[] secondArray)
+    List<uint> BinaryNOR(List<uint> firstArray, List<uint> secondArray)
     {
-      return BinaryNOT(BinaryOR(firstArray, secondArray));
+      return TrimLeadigZeroes(BinaryNOT(BinaryOR(firstArray, secondArray)));
     }
 
     [TestMethod]
     public void XOR26With86()
     {
-      CollectionAssert.AreEqual(new uint[] {1, 0, 0, 1, 1, 0, 0}, BinaryXOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 0, 0}, BinaryXOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    uint[] BinaryXOR(uint[] firstArray, uint[] secondArray)
+    List<uint> BinaryXOR(List<uint> firstArray, List<uint> secondArray)
     {
-      int longest = LongestArrayLength(firstArray, secondArray);
-      uint[] firstPadedArray = new uint[longest]; 
-      uint[] secondPadedArray = new uint[longest];
-      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
-      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
-      uint[] result = new uint[longest];
+      firstArray.Reverse();
+      secondArray.Reverse();
+      List<uint> result = new List<uint>();
+      int longest = firstArray.Count > secondArray.Count ? firstArray.Count : secondArray.Count;
+      while (firstArray.Count < longest)
+        firstArray.Add(0);
+      while (secondArray.Count < longest)
+        secondArray.Add(0);
       for (int i = 0; i < longest; i++)
-        if (firstPadedArray[i] != secondPadedArray[i])
-          result[i] = 1u;
-      return result;
+      {
+        if (firstArray[i] != secondArray[i])
+          result.Add(1u);
+        else
+          result.Add(0);
+      }
+      result.Reverse();
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
     public void Bitshift26Right2()
     {
-      CollectionAssert.AreEqual(new uint[] {1, 1, 0}, BitshiftRight(ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 0}, BitshiftRight(ChangeToBase(26, 2), 2));
     }
 
-    uint[] BitshiftRight(uint[] numberArray, int bits)
+    List<uint> BitshiftRight(List<uint> numberArray, int bits)
     {
-      uint[] result = new uint[numberArray.Length - bits];
-      for (int i = 0; i < result.Length; i++)
-        if (numberArray[i] == 1u)
-          result[i] = 1u;
-      return result;
+      List<uint> result = numberArray;
+      result.Reverse();
+      for (int i = 0; i < bits; i++)
+        result.RemoveAt(0);
+      result.Reverse();
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
     public void Bitshift26Left2()
     {
-      CollectionAssert.AreEqual(new uint[] {1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(ChangeToBase(26, 2), 2));
     }
 
-    uint[] BitshiftLeft(uint[] numberArray, int bits)
+    List<uint> BitshiftLeft(List<uint> numberArray, int bits)
     {
-      uint[] result = new uint[numberArray.Length + bits];
-      for (int i = 0; i < numberArray.Length; i++)
-        if (numberArray[i] == 1u)
-          result[i] = 1u;
-      return result;
+      List<uint> result = numberArray;
+      for (int i = 0; i < bits; i++)
+        result.Add(0);
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
@@ -216,115 +212,127 @@ namespace BaseTwoOperations
       Assert.AreEqual(false, LessThan(ChangeToBase(27, 2), ChangeToBase(26, 2)));
     }
 
-    bool LessThan(uint[] firstArray, uint[] secondArray)
+    bool LessThan(List<uint> firstArray, List<uint> secondArray)
     {
+      firstArray.Reverse();
+      secondArray.Reverse();
       bool result = false;
-      int longest = LongestArrayLength(firstArray, secondArray);
-      uint[] firstPadedArray = new uint[longest]; 
-      uint[] secondPadedArray = new uint[longest];
-      firstPadedArray = PadOrTrimArrayLeft(firstArray, longest);
-      secondPadedArray = PadOrTrimArrayLeft(secondArray, longest);
-      for (int i = longest - 1; i >= 0; i--)
-        if (firstPadedArray[i] != secondPadedArray[i])
-          result = firstPadedArray[i] < secondPadedArray[i] ? true : false;
+      int longest = firstArray.Count > secondArray.Count ? firstArray.Count : secondArray.Count;
+      while (firstArray.Count < longest)
+        firstArray.Add(0);
+      while (secondArray.Count < longest)
+        secondArray.Add(0);
+      for (int i = 0; i < longest; i++)
+        if (firstArray[i] != secondArray[i])
+          result = firstArray[i] < secondArray[i] ? true : false;
       return result;
     }
 
     [TestMethod]
     public void Add26With86InB2()
     {
-      CollectionAssert.AreEqual(new int[] {0, 1, 1, 1, 0, 0, 0, 0}, Add(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}, 2));
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 1, 0, 0, 0, 0}, AddArrays(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
     }
 
-    int[] Add(int[] firstArray, int[] secondArray, int theBase)
+    [TestMethod]
+    public void Add86With86InB2()
     {
-      int[] result = new int[8];
-      int overValue = 0;
-      int indexValue;
-      int finalValue;
-      for (int i = 7; i >= 0 ; i--)
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 1, 0, 1, 1, 0, 0 }, AddArrays(ChangeToBase(86, 2), ChangeToBase(86, 2), 2));
+    }
+
+    [TestMethod]
+    public void Add26With26InB2()
+    {
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0}, AddArrays(ChangeToBase(26, 2), ChangeToBase(26, 2), 2));
+    }
+
+    List<uint> AddArrays(List<uint> firstArray, List<uint> secondArray, uint theBase)
+    {
+      List<uint> firstList = new List<uint>(firstArray);
+      List<uint> secondList = new List<uint>(secondArray);
+      firstList.Reverse();
+      secondList.Reverse();
+      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
+      while (firstList.Count < longest)
+        firstList.Add(0);
+      while (secondList.Count < longest)
+        secondList.Add(0);
+      List<uint> result = new List<uint>();
+      uint overValue = 0;
+      uint indexValue;
+      for (int i = 0; i < longest; i++)
       {
-        indexValue = firstArray[i] + secondArray[i] + overValue;
-        if (indexValue >= theBase)
-        {
-          finalValue = indexValue - theBase;
-          overValue = 1;
-        }
-        else
-        {
-          finalValue = indexValue;
-          overValue = 0;
-        }
-        result[i] = finalValue;
+        indexValue = firstList[i] + secondList[i] + overValue;
+        result.Add(indexValue % theBase);
+        overValue = indexValue / theBase;
       }
-      return result;
+      result.Add(overValue);
+      result.Reverse();
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
     public void Substract26From86InB2()
     {
-      CollectionAssert.AreEqual(new int[] {0, 0, 1, 1, 1, 1, 0, 0}, Substract(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 1, 0, 1, 0, 1, 1, 0}, 2));
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 1, 1, 0, 0}, SubstractArrays(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
     }
 
-    int[] Substract(int[] firstArray, int[] secondArray, int theBase)
+    // works only for positive result (second array must be greater)!!!
+    List<uint> SubstractArrays(List<uint> firstArray, List<uint> secondArray, uint theBase)
     {
-      int[] result = new int[8];
-      int overValue = 0;
-      int indexValue;
-      int finalValue;
-      for (int i = 7; i >= 0 ; i--)
+      firstArray.Reverse();
+      secondArray.Reverse();
+      int longest = firstArray.Count > secondArray.Count ? firstArray.Count : secondArray.Count;
+      while (firstArray.Count < longest)
+        firstArray.Add(0);
+      while (secondArray.Count < longest)
+        secondArray.Add(0);
+      List<uint> result = new List<uint>();
+      uint overValue = 0;
+      uint indexValue;
+      for (int i = 0; i < longest; i++)
       {
-        indexValue = secondArray[i] - firstArray[i] - overValue;
-        if (indexValue < 0)
-        {
-          finalValue = theBase + indexValue;
-          overValue = 1;
-        }
-        else
-        {
-          finalValue = indexValue;
-          overValue = 0;
-        }
-        result[i] = finalValue;
+        indexValue = theBase + secondArray[i] - firstArray[i] - overValue;
+        result.Add(indexValue % theBase);
+        overValue = (indexValue / theBase) == 0 ? 1u : 0;
       }
-      return result;
+      result.Reverse();
+      return TrimLeadigZeroes(result);
     }
 
     [TestMethod]
-    public void ProductOf26And6InB2()
+    public void ProductOf26And6InB2Easy()
     {
-      CollectionAssert.AreEqual(new int[] {1, 0, 0, 1, 1, 1, 0, 0}, Product(new int[] {0, 0, 0, 1, 1, 0, 1, 0}, new int[] {0, 0, 0, 0, 0, 1, 1, 0}, 2));
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 1, 0, 0}, MultiplyArraysEasy(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
     }
 
-    int[] Product(int[] firstArray, int[] secondArray, int theBase)
+    [TestMethod]
+    public void ProductOf26And6InB2Medium()
     {
-      int[] result = new int[8];
-      int[] previousProduct = new int[8];
-      int overValue = 0;
-      int indexValue;
-      int finalValue;
-      for (int i = 7; i >= 0 ; i--)
-      {
-        Array.Clear(previousProduct, 0, 8);
-        for (int j = 7; j >= 0 ; j--)
-        {
-          indexValue = firstArray[i] * secondArray[j] + overValue;
-          if (indexValue >= theBase)
-          {
-            finalValue = indexValue % theBase;
-            overValue = indexValue / theBase;
-          }
-          else
-          {
-            finalValue = indexValue;
-            overValue = 0;
-          }
-          if ((j - (7 - i)) < 0)
-            break;
-          previousProduct[j - (7 - i)] = finalValue;
-        }
-        result = Add(result, previousProduct, theBase);
-      }
+      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 1, 0, 0}, MultiplyArraysMedium(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
+    }
+
+    [TestMethod]
+    public void ProductOf26And2InB2Medium()
+    {
+      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0}, MultiplyArraysMedium(ChangeToBase(26, 2), ChangeToBase(2, 2), 2));
+    }
+
+    List<uint> MultiplyArraysEasy(List<uint> firstArray, List<uint> secondArray, uint theBase)
+    {
+      ulong firstNumber = ChangeToBaseTen(firstArray, theBase);
+      ulong secondNumber = ChangeToBaseTen(secondArray, theBase);
+      ulong product = firstNumber * secondNumber;
+      List<uint> result = ChangeToBase(product, theBase);
+      return result;
+    }
+
+    List<uint> MultiplyArraysMedium(List<uint> firstArray, List<uint> secondArray, uint theBase)
+    {
+      ulong secondNumber = ChangeToBaseTen(secondArray, theBase);
+      List<uint> result = new List<uint>(firstArray);
+      for (ulong i = 1; i < secondNumber; i++)
+        result = new List<uint>(AddArrays(result, firstArray, theBase));
       return result;
     }
   }
