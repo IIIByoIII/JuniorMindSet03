@@ -335,5 +335,20 @@ namespace BaseTwoOperations
         result = new List<uint>(AddLists(result, firstList, theBase));
       return result;
     }
+
+    [TestMethod]
+    public void Divide86With26InB2Easy()
+    {
+      CollectionAssert.AreEqual(new List<uint> {1, 1}, DivideListsEasy(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
+    }
+
+    List<uint> DivideListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
+    {
+      ulong firstNumber = ChangeToBaseTen(firstList, theBase);
+      ulong secondNumber = ChangeToBaseTen(secondList, theBase);
+      ulong quotient = firstNumber / secondNumber;
+      List<uint> result = ChangeToBase(quotient, theBase);
+      return result;
+    }
   }
 }
