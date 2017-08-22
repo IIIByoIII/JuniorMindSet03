@@ -387,6 +387,12 @@ namespace BaseTwoOperations
       Assert.AreEqual(true, EqualTo(ChangeToBase(26, 2), ChangeToBase(26, 2)));
     }
 
+    [TestMethod]
+    public void Is27EqualTo26InB2()
+    {
+      Assert.AreEqual(false, EqualTo(ChangeToBase(27, 2), ChangeToBase(26, 2)));
+    }
+
     bool EqualTo(List<uint> firstList, List<uint> secondList)
     {
       bool firstTest = true;
