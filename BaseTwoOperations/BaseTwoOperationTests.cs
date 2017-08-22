@@ -404,5 +404,23 @@ namespace BaseTwoOperations
         result = true;
       return result;
     }
+
+    [TestMethod]
+    public void Is26GreaterThan86InB2()
+    {
+      Assert.AreEqual(false, GreaterThan(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+    }
+
+    bool GreaterThan(List<uint> firstList, List<uint> secondList)
+    {
+      bool firstTest = false;
+      bool secondTest = true;
+      bool result = false;
+      firstTest = EqualTo(firstList, secondList);
+      secondTest = LessThan(firstList, secondList);
+      if (!firstTest && !secondTest)
+        result = true;
+      return result;
+    }
   }
 }
