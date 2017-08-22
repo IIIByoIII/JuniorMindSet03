@@ -212,6 +212,12 @@ namespace BaseTwoOperations
       Assert.AreEqual(false, LessThan(ChangeToBase(27, 2), ChangeToBase(26, 2)));
     }
 
+    [TestMethod]
+    public void Is26LessThan26InB2()
+    {
+      Assert.AreEqual(false, LessThan(ChangeToBase(26, 2), ChangeToBase(26, 2)));
+    }
+
     bool LessThan(List<uint> firstList, List<uint> secondList)
     {
       List<uint> firstListCopy = new List<uint>(firstList);
@@ -372,6 +378,24 @@ namespace BaseTwoOperations
         i++;
       }
       List<uint> result = ChangeToBase(i, theBase);
+      return result;
+    }
+
+    [TestMethod]
+    public void Is26EqualTo26InB2()
+    {
+      Assert.AreEqual(true, EqualTo(ChangeToBase(26, 2), ChangeToBase(26, 2)));
+    }
+
+    bool EqualTo(List<uint> firstList, List<uint> secondList)
+    {
+      bool firstTest = true;
+      bool secondTest = true;
+      bool result = false;
+      firstTest = LessThan(firstList, secondList);
+      secondTest = LessThan(secondList, firstList);
+      if (!firstTest && !secondTest)
+        result = true;
       return result;
     }
   }
