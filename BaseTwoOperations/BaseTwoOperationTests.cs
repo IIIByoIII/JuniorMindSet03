@@ -214,17 +214,19 @@ namespace BaseTwoOperations
 
     bool LessThan(List<uint> firstList, List<uint> secondList)
     {
-      firstList.Reverse();
-      secondList.Reverse();
+      List<uint> firstListCopy = new List<uint>(firstList);
+      List<uint> secondListCopy = new List<uint>(secondList);
+      firstListCopy.Reverse();
+      secondListCopy.Reverse();
       bool result = false;
-      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
-      while (firstList.Count < longest)
-        firstList.Add(0);
-      while (secondList.Count < longest)
-        secondList.Add(0);
+      int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
+      while (firstListCopy.Count < longest)
+        firstListCopy.Add(0);
+      while (secondListCopy.Count < longest)
+        secondListCopy.Add(0);
       for (int i = 0; i < longest; i++)
-        if (firstList[i] != secondList[i])
-          result = firstList[i] < secondList[i] ? true : false;
+        if (firstListCopy[i] != secondListCopy[i])
+          result = firstListCopy[i] < secondListCopy[i] ? true : false;
       return result;
     }
 
@@ -280,19 +282,21 @@ namespace BaseTwoOperations
     // works only for positive result (second array must be greater)!!!
     List<uint> SubstractLists(List<uint> firstList, List<uint> secondList, uint theBase)
     {
-      firstList.Reverse();
-      secondList.Reverse();
-      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
-      while (firstList.Count < longest)
-        firstList.Add(0);
-      while (secondList.Count < longest)
-        secondList.Add(0);
+      List<uint> firstListCopy = new List<uint>(firstList);
+      List<uint> secondListCopy = new List<uint>(secondList);
+      firstListCopy.Reverse();
+      secondListCopy.Reverse();
+      int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
+      while (firstListCopy.Count < longest)
+        firstListCopy.Add(0);
+      while (secondListCopy.Count < longest)
+        secondListCopy.Add(0);
       List<uint> result = new List<uint>();
       uint overValue = 0;
       uint indexValue;
       for (int i = 0; i < longest; i++)
       {
-        indexValue = theBase + secondList[i] - firstList[i] - overValue;
+        indexValue = theBase + secondListCopy[i] - firstListCopy[i] - overValue;
         result.Add(indexValue % theBase);
         overValue = (indexValue / theBase) == 0 ? 1u : 0;
       }
@@ -306,6 +310,15 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 1, 0, 0}, MultiplyListsEasy(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
     }
 
+    List<uint> MultiplyListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
+    {
+      ulong firstNumber = ChangeToBaseTen(firstList, theBase);
+      ulong secondNumber = ChangeToBaseTen(secondList, theBase);
+      ulong product = firstNumber * secondNumber;
+      List<uint> result = ChangeToBase(product, theBase);
+      return result;
+    }
+
     [TestMethod]
     public void ProductOf26And6InB2Medium()
     {
@@ -316,15 +329,6 @@ namespace BaseTwoOperations
     public void ProductOf26And2InB2Medium()
     {
       CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0}, MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(2, 2), 2));
-    }
-
-    List<uint> MultiplyListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
-    {
-      ulong firstNumber = ChangeToBaseTen(firstList, theBase);
-      ulong secondNumber = ChangeToBaseTen(secondList, theBase);
-      ulong product = firstNumber * secondNumber;
-      List<uint> result = ChangeToBase(product, theBase);
-      return result;
     }
 
     List<uint> MultiplyListsMedium(List<uint> firstList, List<uint> secondList, uint theBase)
@@ -348,6 +352,26 @@ namespace BaseTwoOperations
       ulong secondNumber = ChangeToBaseTen(secondList, theBase);
       ulong quotient = firstNumber / secondNumber;
       List<uint> result = ChangeToBase(quotient, theBase);
+      return result;
+    }
+
+    [TestMethod]
+    public void Divide86With26InB2Medium()
+    {
+      CollectionAssert.AreEqual(new List<uint> {1, 1}, DivideListsMedium(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
+    }
+
+    List<uint> DivideListsMedium(List<uint> firstList, List<uint> secondList, uint theBase)
+    {
+      ulong i = 0;
+      List<uint> firstListCopy = new List<uint>(firstList);
+      List<uint> secondListCopy = new List<uint>(secondList);
+      while (LessThan(secondListCopy, firstListCopy))
+      {
+        firstListCopy = SubstractLists(secondListCopy, firstListCopy, theBase);
+        i++;
+      }
+      List<uint> result = ChangeToBase(i, theBase);
       return result;
     }
   }
