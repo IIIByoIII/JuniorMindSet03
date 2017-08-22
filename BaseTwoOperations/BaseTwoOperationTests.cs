@@ -428,5 +428,16 @@ namespace BaseTwoOperations
         result = true;
       return result;
     }
+
+    [TestMethod]
+    public void Is26NotEqualTo26InB2()
+    {
+      Assert.AreEqual(false, NotEqualTo(ChangeToBase(26, 2), ChangeToBase(26, 2)));
+    }
+
+    bool NotEqualTo(List<uint> firstList, List<uint> secondList)
+    {
+      return !EqualTo(firstList, secondList);
+    }
   }
 }
