@@ -239,19 +239,19 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Add26With86InB2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 1, 0, 0, 0, 0}, AddLists(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(26 + 86, 2), AddLists(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
     }
 
     [TestMethod]
     public void Add86With86InB2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 1, 0, 1, 1, 0, 0 }, AddLists(ChangeToBase(86, 2), ChangeToBase(86, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(86 + 86, 2), AddLists(ChangeToBase(86, 2), ChangeToBase(86, 2), 2));
     }
 
     [TestMethod]
     public void Add26With26InB2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0}, AddLists(ChangeToBase(26, 2), ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(26 + 26, 2), AddLists(ChangeToBase(26, 2), ChangeToBase(26, 2), 2));
     }
 
     List<uint> AddLists(List<uint> firstList, List<uint> secondList, uint theBase)
@@ -282,7 +282,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Substract26From86InB2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 1, 1, 0, 0}, SubstractLists(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(86 - 26, 2), SubstractLists(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
     }
 
     // works only for positive result (second array must be greater)!!!
@@ -313,7 +313,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void ProductOf26And6InB2Easy()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 1, 0, 0}, MultiplyListsEasy(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(26 * 6, 2), MultiplyListsEasy(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
     }
 
     List<uint> MultiplyListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
@@ -328,13 +328,13 @@ namespace BaseTwoOperations
     [TestMethod]
     public void ProductOf26And6InB2Medium()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 1, 0, 0}, MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(26 * 6, 2), MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
     }
 
     [TestMethod]
     public void ProductOf26And2InB2Medium()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0}, MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(2, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(26 * 2, 2), MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(2, 2), 2));
     }
 
     List<uint> MultiplyListsMedium(List<uint> firstList, List<uint> secondList, uint theBase)
@@ -349,7 +349,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Divide86With26InB2Easy()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1}, DivideListsEasy(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(86 / 26, 2), DivideListsEasy(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
     }
 
     List<uint> DivideListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
@@ -364,7 +364,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Divide86With26InB2Medium()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1}, DivideListsMedium(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase(86 / 26, 2), DivideListsMedium(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
     }
 
     List<uint> DivideListsMedium(List<uint> firstList, List<uint> secondList, uint theBase)
