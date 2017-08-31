@@ -96,7 +96,7 @@ namespace BaseTwoOperations
       int shortest = firstList.Count < secondList.Count ? firstList.Count : secondList.Count;
       for (int i = 0 ; i < shortest; i++)
       {
-        if ((firstList[i] == 1u) && (secondList[i] == 1u))
+        if ((firstList[i] == 1) && (secondList[i] == 1))
           result.Add(1);
         else
           result.Add(0);
@@ -123,7 +123,7 @@ namespace BaseTwoOperations
         secondList.Add(0);
       for (int i = 0; i < longest; i++)
       {
-        if ((firstList[i] == 1u) || (secondList[i] == 1u))
+        if ((firstList[i] == 1) || (secondList[i] == 1))
           result.Add(1);
         else
           result.Add(0);
