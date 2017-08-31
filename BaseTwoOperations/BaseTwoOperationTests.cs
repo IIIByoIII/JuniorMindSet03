@@ -10,17 +10,17 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Convert26FromB10toB2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0}, ChangeToBase(26, 2));
+      CollectionAssert.AreEqual(new List<byte> {1, 1, 0, 1, 0}, ChangeToBase(26, 2));
     }
 
-    List<uint> ChangeToBase(ulong number, uint theBase)
+    List<byte> ChangeToBase(ulong number, byte theBase)
     {
-      List<uint> result = new List<uint>();
+      List<byte> result = new List<byte>();
       ulong quotient = number;
-      uint remainder;
+      byte remainder;
       while (quotient != 0)
       {
-        remainder = (uint) (quotient % theBase);
+        remainder = (byte) (quotient % theBase);
         quotient /= theBase;
         result.Add(remainder);
       }
@@ -31,26 +31,26 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Convert26FromB2toB10()
     {
-      Assert.AreEqual(26ul, ChangeToBaseTen(new List<uint> {1, 1, 0, 1, 0}, 2));
+      Assert.AreEqual(26ul, ChangeToBaseTen(new List<byte> {1, 1, 0, 1, 0}, 2));
     }
 
-    uint UIntPow(uint nr, uint pow)
+    ulong UIntPow(ulong nr, byte pow)
     {
-      uint result = 1;
+      ulong result = 1;
       if (pow == 0)
         return 1;
-      for (uint i = 0; i < pow; i++)
+      for (byte i = 0; i < pow; i++)
         result *= nr;
       return result;
     }
 
-    ulong ChangeToBaseTen(List<uint> numberList, uint theBase)
+    ulong ChangeToBaseTen(List<byte> numberList, byte theBase)
     {
       ulong result = 0;
       int j = numberList.Count - 1;
       for (int i = 0; i < numberList.Count; i++)
       {
-        result += numberList[i] * UIntPow(theBase, (uint) j);
+        result += numberList[i] * UIntPow(theBase, (byte) j);
         j--;
       }
       return result;
@@ -59,10 +59,10 @@ namespace BaseTwoOperations
     [TestMethod]
     public void RemoveLeadingZeroes26()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0}, TrimLeadigZeroes(new List<uint> {0, 0, 1, 1, 0, 1, 0}));
+      CollectionAssert.AreEqual(new List<byte> {1, 1, 0, 1, 0}, TrimLeadigZeroes(new List<byte> {0, 0, 1, 1, 0, 1, 0}));
     }
 
-    List<uint> TrimLeadigZeroes(List<uint> numberList)
+    List<byte> TrimLeadigZeroes(List<byte> numberList)
     {
       while (numberList[0] == 0)
         numberList.RemoveAt(0);
@@ -72,32 +72,32 @@ namespace BaseTwoOperations
     [TestMethod]
     public void NOT26()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 1}, BinaryNOT(ChangeToBase(26, 2)));
+      CollectionAssert.AreEqual(new List<byte> {1, 0, 1}, BinaryNOT(ChangeToBase(26, 2)));
     }
 
-    List<uint> BinaryNOT(List<uint> numberList)
+    List<byte> BinaryNOT(List<byte> numberList)
     {
       for (int i = 0; i < numberList.Count; i++)
-        numberList[i] = (numberList[i] == 0) ? 1u : 0;
+        numberList[i] = (byte)((numberList[i] == 0) ? 1 : 0);
       return TrimLeadigZeroes(numberList);
     }
 
     [TestMethod]
     public void AND26With86()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 0}, BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<byte> {1, 0, 0, 1, 0}, BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    List<uint> BinaryAND(List<uint> firstList, List<uint> secondList)
+    List<byte> BinaryAND(List<byte> firstList, List<byte> secondList)
     {
       firstList.Reverse();
       secondList.Reverse();
-      List<uint> result = new List<uint>();
+      List<byte> result = new List<byte>();
       int shortest = firstList.Count < secondList.Count ? firstList.Count : secondList.Count;
       for (int i = 0 ; i < shortest; i++)
       {
         if ((firstList[i] == 1u) && (secondList[i] == 1u))
-          result.Add(1u);
+          result.Add(1);
         else
           result.Add(0);
       }
@@ -108,14 +108,14 @@ namespace BaseTwoOperations
     [TestMethod]
     public void OR26With86()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 1, 1, 1, 1, 0}, BinaryOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<byte> {1, 0, 1, 1, 1, 1, 0}, BinaryOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    List<uint> BinaryOR(List<uint> firstList, List<uint> secondList)
+    List<byte> BinaryOR(List<byte> firstList, List<byte> secondList)
     {
       firstList.Reverse();
       secondList.Reverse();
-      List<uint> result = new List<uint>();
+      List<byte> result = new List<byte>();
       int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
       while (firstList.Count < longest)
         firstList.Add(0);
@@ -124,7 +124,7 @@ namespace BaseTwoOperations
       for (int i = 0; i < longest; i++)
       {
         if ((firstList[i] == 1u) || (secondList[i] == 1u))
-          result.Add(1u);
+          result.Add(1);
         else
           result.Add(0);
       }
@@ -135,10 +135,10 @@ namespace BaseTwoOperations
     [TestMethod]
     public void NOR26With86()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 0, 0, 1}, BinaryNOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<byte> {1, 0, 0, 0, 0, 1}, BinaryNOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    List<uint> BinaryNOR(List<uint> firstList, List<uint> secondList)
+    List<byte> BinaryNOR(List<byte> firstList, List<byte> secondList)
     {
       return TrimLeadigZeroes(BinaryNOT(BinaryOR(firstList, secondList)));
     }
@@ -146,14 +146,14 @@ namespace BaseTwoOperations
     [TestMethod]
     public void XOR26With86()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 0, 0, 1, 1, 0, 0}, BinaryXOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(new List<byte> {1, 0, 0, 1, 1, 0, 0}, BinaryXOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    List<uint> BinaryXOR(List<uint> firstList, List<uint> secondList)
+    List<byte> BinaryCommonORXOR(List<byte> firstList, List<byte> secondList)
     {
       firstList.Reverse();
       secondList.Reverse();
-      List<uint> result = new List<uint>();
+      List<byte> result = new List<byte>();
       int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
       while (firstList.Count < longest)
         firstList.Add(0);
@@ -162,7 +162,28 @@ namespace BaseTwoOperations
       for (int i = 0; i < longest; i++)
       {
         if (firstList[i] != secondList[i])
-          result.Add(1u);
+          result.Add(1);
+        else
+          result.Add(0);
+      }
+      result.Reverse();
+      return TrimLeadigZeroes(result);
+    }
+
+    List<byte> BinaryXOR(List<byte> firstList, List<byte> secondList)
+    {
+      firstList.Reverse();
+      secondList.Reverse();
+      List<byte> result = new List<byte>();
+      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
+      while (firstList.Count < longest)
+        firstList.Add(0);
+      while (secondList.Count < longest)
+        secondList.Add(0);
+      for (int i = 0; i < longest; i++)
+      {
+        if (firstList[i] != secondList[i])
+          result.Add(1);
         else
           result.Add(0);
       }
@@ -173,12 +194,12 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Bitshift26Right2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 0}, BitshiftRight(ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(new List<byte> {1, 1, 0}, BitshiftRight(ChangeToBase(26, 2), 2));
     }
 
-    List<uint> BitshiftRight(List<uint> numberList, int bits)
+    List<byte> BitshiftRight(List<byte> numberList, int bits)
     {
-      List<uint> result = numberList;
+      List<byte> result = numberList;
       result.Reverse();
       for (int i = 0; i < bits; i++)
         result.RemoveAt(0);
@@ -189,12 +210,12 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Bitshift26Left2()
     {
-      CollectionAssert.AreEqual(new List<uint> {1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(new List<byte> {1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(ChangeToBase(26, 2), 2));
     }
 
-    List<uint> BitshiftLeft(List<uint> numberList, int bits)
+    List<byte> BitshiftLeft(List<byte> numberList, int bits)
     {
-      List<uint> result = numberList;
+      List<byte> result = numberList;
       for (int i = 0; i < bits; i++)
         result.Add(0);
       return TrimLeadigZeroes(result);
@@ -218,10 +239,10 @@ namespace BaseTwoOperations
       Assert.AreEqual(false, LessThan(ChangeToBase(26, 2), ChangeToBase(26, 2)));
     }
 
-    bool LessThan(List<uint> firstList, List<uint> secondList)
+    bool LessThan(List<byte> firstList, List<byte> secondList)
     {
-      List<uint> firstListCopy = new List<uint>(firstList);
-      List<uint> secondListCopy = new List<uint>(secondList);
+      List<byte> firstListCopy = new List<byte>(firstList);
+      List<byte> secondListCopy = new List<byte>(secondList);
       firstListCopy.Reverse();
       secondListCopy.Reverse();
       bool result = false;
@@ -254,10 +275,10 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase(26 + 26, 2), AddLists(ChangeToBase(26, 2), ChangeToBase(26, 2), 2));
     }
 
-    List<uint> AddLists(List<uint> firstList, List<uint> secondList, uint theBase)
+    List<byte> AddLists(List<byte> firstList, List<byte> secondList, byte theBase)
     {
-      List<uint> firstListCopy = new List<uint>(firstList);
-      List<uint> secondListCopy = new List<uint>(secondList);
+      List<byte> firstListCopy = new List<byte>(firstList);
+      List<byte> secondListCopy = new List<byte>(secondList);
       firstListCopy.Reverse();
       secondListCopy.Reverse();
       int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
@@ -265,14 +286,14 @@ namespace BaseTwoOperations
         firstListCopy.Add(0);
       while (secondListCopy.Count < longest)
         secondListCopy.Add(0);
-      List<uint> result = new List<uint>();
-      uint overValue = 0;
-      uint indexValue;
+      List<byte> result = new List<byte>();
+      byte overValue = 0;
+      int indexValue;
       for (int i = 0; i < longest; i++)
       {
         indexValue = firstListCopy[i] + secondListCopy[i] + overValue;
-        result.Add(indexValue % theBase);
-        overValue = indexValue / theBase;
+        result.Add((byte)(indexValue % theBase));
+        overValue = (byte)(indexValue / theBase);
       }
       result.Add(overValue);
       result.Reverse();
@@ -286,10 +307,10 @@ namespace BaseTwoOperations
     }
 
     // works only for positive result (second array must be greater)!!!
-    List<uint> SubstractLists(List<uint> firstList, List<uint> secondList, uint theBase)
+    List<byte> SubstractLists(List<byte> firstList, List<byte> secondList, byte theBase)
     {
-      List<uint> firstListCopy = new List<uint>(firstList);
-      List<uint> secondListCopy = new List<uint>(secondList);
+      List<byte> firstListCopy = new List<byte>(firstList);
+      List<byte> secondListCopy = new List<byte>(secondList);
       firstListCopy.Reverse();
       secondListCopy.Reverse();
       int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
@@ -297,14 +318,14 @@ namespace BaseTwoOperations
         firstListCopy.Add(0);
       while (secondListCopy.Count < longest)
         secondListCopy.Add(0);
-      List<uint> result = new List<uint>();
-      uint overValue = 0;
-      uint indexValue;
+      List<byte> result = new List<byte>();
+      byte overValue = 0;
+      int indexValue;
       for (int i = 0; i < longest; i++)
       {
         indexValue = theBase + secondListCopy[i] - firstListCopy[i] - overValue;
-        result.Add(indexValue % theBase);
-        overValue = (indexValue / theBase) == 0 ? 1u : 0;
+        result.Add((byte)(indexValue % theBase));
+        overValue = (byte)((indexValue / theBase) == 0 ? 1 : 0);
       }
       result.Reverse();
       return TrimLeadigZeroes(result);
@@ -316,12 +337,12 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase(26 * 6, 2), MultiplyListsEasy(ChangeToBase(26, 2), ChangeToBase(6, 2), 2));
     }
 
-    List<uint> MultiplyListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
+    List<byte> MultiplyListsEasy(List<byte> firstList, List<byte> secondList, byte theBase)
     {
       ulong firstNumber = ChangeToBaseTen(firstList, theBase);
       ulong secondNumber = ChangeToBaseTen(secondList, theBase);
       ulong product = firstNumber * secondNumber;
-      List<uint> result = ChangeToBase(product, theBase);
+      List<byte> result = ChangeToBase(product, theBase);
       return result;
     }
 
@@ -337,12 +358,12 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase(26 * 2, 2), MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(2, 2), 2));
     }
 
-    List<uint> MultiplyListsMedium(List<uint> firstList, List<uint> secondList, uint theBase)
+    List<byte> MultiplyListsMedium(List<byte> firstList, List<byte> secondList, byte theBase)
     {
       ulong secondNumber = ChangeToBaseTen(secondList, theBase);
-      List<uint> result = new List<uint>(firstList);
+      List<byte> result = new List<byte>(firstList);
       for (ulong i = 1; i < secondNumber; i++)
-        result = new List<uint>(AddLists(result, firstList, theBase));
+        result = new List<byte>(AddLists(result, firstList, theBase));
       return result;
     }
 
@@ -352,12 +373,12 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase(86 / 26, 2), DivideListsEasy(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
     }
 
-    List<uint> DivideListsEasy(List<uint> firstList, List<uint> secondList, uint theBase)
+    List<byte> DivideListsEasy(List<byte> firstList, List<byte> secondList, byte theBase)
     {
       ulong firstNumber = ChangeToBaseTen(firstList, theBase);
       ulong secondNumber = ChangeToBaseTen(secondList, theBase);
       ulong quotient = firstNumber / secondNumber;
-      List<uint> result = ChangeToBase(quotient, theBase);
+      List<byte> result = ChangeToBase(quotient, theBase);
       return result;
     }
 
@@ -367,17 +388,17 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase(86 / 26, 2), DivideListsMedium(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
     }
 
-    List<uint> DivideListsMedium(List<uint> firstList, List<uint> secondList, uint theBase)
+    List<byte> DivideListsMedium(List<byte> firstList, List<byte> secondList, byte theBase)
     {
       ulong i = 0;
-      List<uint> firstListCopy = new List<uint>(firstList);
-      List<uint> secondListCopy = new List<uint>(secondList);
+      List<byte> firstListCopy = new List<byte>(firstList);
+      List<byte> secondListCopy = new List<byte>(secondList);
       while (LessThan(secondListCopy, firstListCopy))
       {
         firstListCopy = SubstractLists(secondListCopy, firstListCopy, theBase);
         i++;
       }
-      List<uint> result = ChangeToBase(i, theBase);
+      List<byte> result = ChangeToBase(i, theBase);
       return result;
     }
 
@@ -393,7 +414,7 @@ namespace BaseTwoOperations
       Assert.AreEqual(false, EqualTo(ChangeToBase(27, 2), ChangeToBase(26, 2)));
     }
 
-    bool EqualTo(List<uint> firstList, List<uint> secondList)
+    bool EqualTo(List<byte> firstList, List<byte> secondList)
     {
       bool firstTest = true;
       bool secondTest = true;
@@ -417,7 +438,7 @@ namespace BaseTwoOperations
       Assert.AreEqual(true, GreaterThan(ChangeToBase(86, 2), ChangeToBase(26, 2)));
     }
 
-    bool GreaterThan(List<uint> firstList, List<uint> secondList)
+    bool GreaterThan(List<byte> firstList, List<byte> secondList)
     {
       bool firstTest = false;
       bool secondTest = true;
@@ -441,7 +462,7 @@ namespace BaseTwoOperations
       Assert.AreEqual(true, NotEqualTo(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     }
 
-    bool NotEqualTo(List<uint> firstList, List<uint> secondList)
+    bool NotEqualTo(List<byte> firstList, List<byte> secondList)
     {
       return !EqualTo(firstList, secondList);
     }
