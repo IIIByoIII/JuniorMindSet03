@@ -473,6 +473,18 @@ namespace BaseTwoOperations
       Assert.AreEqual(1, GetAt(ChangeToBase(10, 2), 1));
     }
 
+    [TestMethod]
+    public void GetAt10B2Index2()
+    {
+      Assert.AreEqual(0, GetAt(ChangeToBase(10, 2), 2));
+    }
+
+    [TestMethod]
+    public void GetAt10B2Index5()
+    {
+      Assert.AreEqual(0, GetAt(ChangeToBase(10, 2), 5));
+    }
+
     byte GetAt(List<byte> theList, int i)
     {
       int theLength = theList.Count;
