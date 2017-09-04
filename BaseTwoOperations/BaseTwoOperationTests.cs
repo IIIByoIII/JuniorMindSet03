@@ -466,5 +466,18 @@ namespace BaseTwoOperations
     {
       return !EqualTo(firstList, secondList);
     }
+
+    [TestMethod]
+    public void GetAt10B2Index1()
+    {
+      Assert.AreEqual(1, GetAt(ChangeToBase(10, 2), 1));
+    }
+
+    byte GetAt(List<byte> theList, int i)
+    {
+      int theLength = theList.Count;
+      byte result = theLength > i ? theList[theLength - i - 1] : (byte)0;
+      return result;
+    }
   }
 }
