@@ -85,25 +85,23 @@ namespace BaseTwoOperations
     [TestMethod]
     public void AND26With86() // {{{
     {
-      CollectionAssert.AreEqual(new List<byte> {1, 0, 0, 1, 0}, BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 & 86), 2), BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
     } // }}}
 
     List<byte> BinaryAND(List<byte> firstList, List<byte> secondList) // {{{
     {
-      firstList.Reverse();
-      secondList.Reverse();
-      List<byte> result = new List<byte>();
-      int shortest = firstList.Count < secondList.Count ? firstList.Count : secondList.Count;
+      var result = new List<byte>();
+      int shortest = Math.Min(firstList.Count, secondList.Count);
       for (int i = 0 ; i < shortest; i++)
-      {
-        if ((firstList[i] == 1) && (secondList[i] == 1))
-          result.Add(1);
-        else
-          result.Add(0);
-      }
+        result.Add(ANDLogic(GetAt(firstList, i), GetAt(secondList, i)) ? (byte)1 : (byte)0);
       result.Reverse();
       return TrimLeadigZeroes(result);
     } // }}}
+
+    bool ANDLogic(byte a, byte b)
+    {
+      return ((a + b) == 2);
+    }
 
     [TestMethod]
     public void OR26With86() // {{{
