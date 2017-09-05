@@ -85,49 +85,38 @@ namespace BaseTwoOperations
     [TestMethod]
     public void AND26With86() // {{{
     {
-      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 & 86), 2), BinaryAND(ChangeToBase(26, 2), ChangeToBase(86, 2)));
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 & 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "AND"));
     } // }}}
 
-    List<byte> BinaryAND(List<byte> firstList, List<byte> secondList) // {{{
+    List<byte> BinaryLogic(List<byte> firstList, List<byte> secondList, string operation) // {{{
     {
       var result = new List<byte>();
-      int shortest = Math.Min(firstList.Count, secondList.Count);
+      int shortest = Math.Max(firstList.Count, secondList.Count);
       for (int i = 0 ; i < shortest; i++)
-        result.Add(ANDLogic(GetAt(firstList, i), GetAt(secondList, i)) ? (byte)1 : (byte)0);
+        result.Add(LogicOperation(GetAt(firstList, i), GetAt(secondList, i), operation) ? (byte)1 : (byte)0);
       result.Reverse();
       return TrimLeadigZeroes(result);
     } // }}}
 
-    bool ANDLogic(byte a, byte b)
+    bool LogicOperation(byte a, byte b, string operation) // {{{
     {
-      return ((a + b) == 2);
-    }
+      switch (operation)
+      {
+        case "AND":
+          return ((a + b) == 2);
+        case "OR":
+          return ((a + b) > 0);
+        case "XOR":
+          return (a != b);
+        default:
+          return false;
+      }
+    } // }}}
 
     [TestMethod]
     public void OR26With86() // {{{
     {
-      CollectionAssert.AreEqual(new List<byte> {1, 0, 1, 1, 1, 1, 0}, BinaryOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
-    } // }}}
-
-    List<byte> BinaryOR(List<byte> firstList, List<byte> secondList) // {{{
-    {
-      firstList.Reverse();
-      secondList.Reverse();
-      List<byte> result = new List<byte>();
-      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
-      while (firstList.Count < longest)
-        firstList.Add(0);
-      while (secondList.Count < longest)
-        secondList.Add(0);
-      for (int i = 0; i < longest; i++)
-      {
-        if ((firstList[i] == 1) || (secondList[i] == 1))
-          result.Add(1);
-        else
-          result.Add(0);
-      }
-      result.Reverse();
-      return TrimLeadigZeroes(result);
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 | 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "OR"));
     } // }}}
 
     [TestMethod]
@@ -138,55 +127,13 @@ namespace BaseTwoOperations
 
     List<byte> BinaryNOR(List<byte> firstList, List<byte> secondList) // {{{
     {
-      return TrimLeadigZeroes(BinaryNOT(BinaryOR(firstList, secondList)));
+      return TrimLeadigZeroes(BinaryNOT(BinaryLogic(firstList, secondList, "OR")));
     } // }}}
 
     [TestMethod]
     public void XOR26With86() // {{{
     {
-      CollectionAssert.AreEqual(new List<byte> {1, 0, 0, 1, 1, 0, 0}, BinaryXOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
-    } // }}}
-
-    List<byte> BinaryCommonORXOR(List<byte> firstList, List<byte> secondList) // {{{
-    {
-      firstList.Reverse();
-      secondList.Reverse();
-      List<byte> result = new List<byte>();
-      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
-      while (firstList.Count < longest)
-        firstList.Add(0);
-      while (secondList.Count < longest)
-        secondList.Add(0);
-      for (int i = 0; i < longest; i++)
-      {
-        if (firstList[i] != secondList[i])
-          result.Add(1);
-        else
-          result.Add(0);
-      }
-      result.Reverse();
-      return TrimLeadigZeroes(result);
-    } // }}}
-
-    List<byte> BinaryXOR(List<byte> firstList, List<byte> secondList) // {{{
-    {
-      firstList.Reverse();
-      secondList.Reverse();
-      List<byte> result = new List<byte>();
-      int longest = firstList.Count > secondList.Count ? firstList.Count : secondList.Count;
-      while (firstList.Count < longest)
-        firstList.Add(0);
-      while (secondList.Count < longest)
-        secondList.Add(0);
-      for (int i = 0; i < longest; i++)
-      {
-        if (firstList[i] != secondList[i])
-          result.Add(1);
-        else
-          result.Add(0);
-      }
-      result.Reverse();
-      return TrimLeadigZeroes(result);
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 ^ 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "XOR"));
     } // }}}
 
     [TestMethod]
