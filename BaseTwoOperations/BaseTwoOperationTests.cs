@@ -88,6 +88,18 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase((ulong)(26 & 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "AND"));
     } // }}}
 
+    [TestMethod]
+    public void OR26With86() // {{{
+    {
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 | 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "OR"));
+    } // }}}
+
+    [TestMethod]
+    public void XOR26With86() // {{{
+    {
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 ^ 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "XOR"));
+    } // }}}
+
     List<byte> BinaryLogic(List<byte> firstList, List<byte> secondList, string operation) // {{{
     {
       var result = new List<byte>();
@@ -114,12 +126,6 @@ namespace BaseTwoOperations
     } // }}}
 
     [TestMethod]
-    public void OR26With86() // {{{
-    {
-      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 | 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "OR"));
-    } // }}}
-
-    [TestMethod]
     public void NOR26With86() // {{{
     {
       CollectionAssert.AreEqual(new List<byte> {1, 0, 0, 0, 0, 1}, BinaryNOR(ChangeToBase(26, 2), ChangeToBase(86, 2)));
@@ -128,12 +134,6 @@ namespace BaseTwoOperations
     List<byte> BinaryNOR(List<byte> firstList, List<byte> secondList) // {{{
     {
       return TrimLeadigZeroes(BinaryNOT(BinaryLogic(firstList, secondList, "OR")));
-    } // }}}
-
-    [TestMethod]
-    public void XOR26With86() // {{{
-    {
-      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 ^ 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "XOR"));
     } // }}}
 
     [TestMethod]
