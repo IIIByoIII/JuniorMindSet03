@@ -216,12 +216,11 @@ namespace BaseTwoOperations
 
     bool LessThan(List<byte> firstList, List<byte> secondList) // {{{
     {
-      bool result = false;
       int longest = Math.Max(firstList.Count, secondList.Count);
-      for (int i = 0; i < longest; i++)
+      for (int i = longest - 1; i >= 0; i--)
         if (GetAt(firstList, i) != GetAt(secondList, i))
-          result = GetAt(firstList, i) < GetAt(secondList, i) ? true : false;
-      return result;
+          return GetAt(firstList, i) < GetAt(secondList, i);
+      return false;
     } // }}}
 
     [TestMethod]
