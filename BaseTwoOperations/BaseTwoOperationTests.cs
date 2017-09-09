@@ -31,7 +31,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Convert26FromB2toB10() // {{{
     {
-      Assert.AreEqual(26ul, ChangeToBaseTen(new List<byte> {1, 1, 0, 1, 0}, 2));
+      Assert.AreEqual(26ul, ChangeToBaseTen(ChangeToBase(26, 2), 2));
     } // }}}
 
     ulong UIntPow(ulong nr, byte pow) // {{{
@@ -139,7 +139,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Bitshift26Right2() // {{{
     {
-      CollectionAssert.AreEqual(new List<byte> {1, 1, 0}, BitshiftRight(ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase((26 >> 2), 2), BitshiftRight(ChangeToBase(26, 2), 2));
     } // }}}
 
     List<byte> BitshiftRight(List<byte> numberList, int bits) // {{{
@@ -155,7 +155,7 @@ namespace BaseTwoOperations
     [TestMethod]
     public void Bitshift26Left2() // {{{
     {
-      CollectionAssert.AreEqual(new List<byte> {1, 1, 0, 1, 0, 0, 0}, BitshiftLeft(ChangeToBase(26, 2), 2));
+      CollectionAssert.AreEqual(ChangeToBase((26 << 2), 2), BitshiftLeft(ChangeToBase(26, 2), 2));
     } // }}}
 
     List<byte> BitshiftLeft(List<byte> numberList, int bits) // {{{
