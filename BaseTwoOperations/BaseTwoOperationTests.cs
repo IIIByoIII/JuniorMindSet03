@@ -103,8 +103,8 @@ namespace BaseTwoOperations
     List<byte> BinaryLogic(List<byte> firstList, List<byte> secondList, Func<byte, byte, byte> operation) // {{{
     {
       var result = new List<byte>();
-      int shortest = Math.Max(firstList.Count, secondList.Count);
-      for (int i = 0 ; i < shortest; i++)
+      int longest = Math.Max(firstList.Count, secondList.Count);
+      for (int i = 0 ; i < longest; i++)
         result.Add(operation(GetAt(firstList, i), GetAt(secondList, i)));
       result.Reverse();
       return TrimLeadigZeroes(result);
@@ -186,19 +186,11 @@ namespace BaseTwoOperations
 
     bool LessThan(List<byte> firstList, List<byte> secondList) // {{{
     {
-      List<byte> firstListCopy = new List<byte>(firstList);
-      List<byte> secondListCopy = new List<byte>(secondList);
-      firstListCopy.Reverse();
-      secondListCopy.Reverse();
       bool result = false;
-      int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
-      while (firstListCopy.Count < longest)
-        firstListCopy.Add(0);
-      while (secondListCopy.Count < longest)
-        secondListCopy.Add(0);
+      int longest = Math.Max(firstList.Count, secondList.Count);
       for (int i = 0; i < longest; i++)
-        if (firstListCopy[i] != secondListCopy[i])
-          result = firstListCopy[i] < secondListCopy[i] ? true : false;
+        if (GetAt(firstList, i) != GetAt(secondList, i))
+          result = GetAt(firstList, i) < GetAt(secondList, i) ? true : false;
       return result;
     } // }}}
 
