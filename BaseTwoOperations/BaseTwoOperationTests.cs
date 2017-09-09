@@ -396,14 +396,7 @@ namespace BaseTwoOperations
 
                 bool EqualTo(List<byte> firstList, List<byte> secondList) // {{{
                 {
-                        bool firstTest = true;
-                        bool secondTest = true;
-                        bool result = false;
-                        firstTest = LessThan(firstList, secondList);
-                        secondTest = LessThan(secondList, firstList);
-                        if (!firstTest && !secondTest)
-                                result = true;
-                        return result;
+                        return !LessThan(firstList, secondList) && !LessThan(secondList, firstList); 
                 } // }}}
 
                 [TestMethod]
