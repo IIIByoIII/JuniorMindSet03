@@ -214,21 +214,13 @@ namespace BaseTwoOperations
 
     List<byte> AddLists(List<byte> firstList, List<byte> secondList, byte theBase) // {{{
     {
-      List<byte> firstListCopy = new List<byte>(firstList);
-      List<byte> secondListCopy = new List<byte>(secondList);
-      firstListCopy.Reverse();
-      secondListCopy.Reverse();
-      int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
-      while (firstListCopy.Count < longest)
-        firstListCopy.Add(0);
-      while (secondListCopy.Count < longest)
-        secondListCopy.Add(0);
-      List<byte> result = new List<byte>();
+      var result = new List<byte>();
+      int longest = Math.Max(firstList.Count, secondList.Count);
       byte overValue = 0;
       int indexValue;
       for (int i = 0; i < longest; i++)
       {
-        indexValue = firstListCopy[i] + secondListCopy[i] + overValue;
+        indexValue = GetAt(firstList, i) + GetAt(secondList, i) + overValue;
         result.Add((byte)(indexValue % theBase));
         overValue = (byte)(indexValue / theBase);
       }
@@ -246,21 +238,13 @@ namespace BaseTwoOperations
     // works only for positive result (second array must be greater)!!!
     List<byte> SubstractLists(List<byte> firstList, List<byte> secondList, byte theBase) // {{{
     {
-      List<byte> firstListCopy = new List<byte>(firstList);
-      List<byte> secondListCopy = new List<byte>(secondList);
-      firstListCopy.Reverse();
-      secondListCopy.Reverse();
-      int longest = firstListCopy.Count > secondListCopy.Count ? firstListCopy.Count : secondListCopy.Count;
-      while (firstListCopy.Count < longest)
-        firstListCopy.Add(0);
-      while (secondListCopy.Count < longest)
-        secondListCopy.Add(0);
-      List<byte> result = new List<byte>();
+      var result = new List<byte>();
+      int longest = Math.Max(firstList.Count, secondList.Count);
       byte overValue = 0;
       int indexValue;
       for (int i = 0; i < longest; i++)
       {
-        indexValue = theBase + secondListCopy[i] - firstListCopy[i] - overValue;
+        indexValue = theBase + GetAt(secondList, i) - GetAt(firstList, i) - overValue;
         result.Add((byte)(indexValue % theBase));
         overValue = (byte)((indexValue / theBase) == 0 ? 1 : 0);
       }
