@@ -85,44 +85,44 @@ namespace BaseTwoOperations
     [TestMethod]
     public void AND26With86() // {{{
     {
-      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 & 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "AND"));
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 & 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), LogicAND()));
     } // }}}
 
     [TestMethod]
     public void OR26With86() // {{{
     {
-      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 | 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "OR"));
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 | 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), LogicOR()));
     } // }}}
 
     [TestMethod]
     public void XOR26With86() // {{{
     {
-      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 ^ 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), "XOR"));
+      CollectionAssert.AreEqual(ChangeToBase((ulong)(26 ^ 86), 2), BinaryLogic(ChangeToBase(26, 2), ChangeToBase(86, 2), LogicXOR()));
     } // }}}
 
-    List<byte> BinaryLogic(List<byte> firstList, List<byte> secondList, string operation) // {{{
+    List<byte> BinaryLogic(List<byte> firstList, List<byte> secondList, Func<byte, byte, byte> operation) // {{{
     {
       var result = new List<byte>();
       int shortest = Math.Max(firstList.Count, secondList.Count);
       for (int i = 0 ; i < shortest; i++)
-        result.Add(LogicOperation(GetAt(firstList, i), GetAt(secondList, i), operation) ? (byte)1 : (byte)0);
+        result.Add(operation(GetAt(firstList, i), GetAt(secondList, i)));
       result.Reverse();
       return TrimLeadigZeroes(result);
     } // }}}
 
-    bool LogicOperation(byte a, byte b, string operation) // {{{
+    Func<byte, byte, byte> LogicAND() // {{{ + OR + XOR
     {
-      switch (operation)
-      {
-        case "AND":
-          return ((a + b) == 2);
-        case "OR":
-          return ((a + b) > 0);
-        case "XOR":
-          return (a != b);
-        default:
-          return false;
-      }
+      return (x, y) => Convert.ToByte((x + y) == 2);
+    }
+
+    Func<byte, byte, byte> LogicOR()
+    {
+      return (x, y) => Convert.ToByte((x + y) > 0);
+    }
+
+    Func<byte, byte, byte> LogicXOR()
+    {
+      return (x, y) => Convert.ToByte(x != y);
     } // }}}
 
     [TestMethod]
@@ -133,7 +133,7 @@ namespace BaseTwoOperations
 
     List<byte> BinaryNOR(List<byte> firstList, List<byte> secondList) // {{{
     {
-      return TrimLeadigZeroes(BinaryNOT(BinaryLogic(firstList, secondList, "OR")));
+      return TrimLeadigZeroes(BinaryNOT(BinaryLogic(firstList, secondList, LogicOR())));
     } // }}}
 
     [TestMethod]
