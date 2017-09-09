@@ -46,6 +46,18 @@ namespace BaseTwoOperations
       Assert.AreEqual(26ul, ChangeToBaseTen(ChangeToBase(26, 2), 2));
     } // }}}
 
+    [TestMethod]
+    public void Convert26FromB3toB10() // {{{
+    {
+      Assert.AreEqual(26ul, ChangeToBaseTen(ChangeToBase(26, 3), 3));
+    } // }}}
+
+    [TestMethod]
+    public void Convert26FromB16toB10() // {{{
+    {
+      Assert.AreEqual(26ul, ChangeToBaseTen(ChangeToBase(26, 16), 16));
+    } // }}}
+
     ulong UIntPow(ulong nr, byte pow) // {{{
     {
       ulong result = 1;
@@ -191,6 +203,12 @@ namespace BaseTwoOperations
     } // }}}
 
     [TestMethod]
+    public void Is2601LessThan2600InB255() // {{{
+    {
+      Assert.AreEqual(false, LessThan(ChangeToBase(2601, 255), ChangeToBase(2600, 255)));
+    } // }}}
+
+    [TestMethod]
     public void Is26LessThan26InB2() // {{{
     {
       Assert.AreEqual(false, LessThan(ChangeToBase(26, 2), ChangeToBase(26, 2)));
@@ -210,6 +228,12 @@ namespace BaseTwoOperations
     public void Add26With86InB2() // {{{
     {
       CollectionAssert.AreEqual(ChangeToBase(26 + 86, 2), AddLists(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
+    } // }}}
+
+    [TestMethod]
+    public void Add2600With8600InB255() // {{{
+    {
+      CollectionAssert.AreEqual(ChangeToBase(2600 + 8600, 255), AddLists(ChangeToBase(2600, 255), ChangeToBase(8600, 255), 255));
     } // }}}
 
     [TestMethod]
@@ -245,6 +269,12 @@ namespace BaseTwoOperations
     public void Substract26From86InB2() // {{{
     {
       CollectionAssert.AreEqual(ChangeToBase(86 - 26, 2), SubstractLists(ChangeToBase(26, 2), ChangeToBase(86, 2), 2));
+    } // }}}
+
+    [TestMethod]
+    public void Substract2600From8600InB255() // {{{
+    {
+      CollectionAssert.AreEqual(ChangeToBase(8600 - 2600, 255), SubstractLists(ChangeToBase(2600, 255), ChangeToBase(8600, 255), 255));
     } // }}}
 
     // works only for positive result (second array must be greater)!!!
@@ -286,6 +316,12 @@ namespace BaseTwoOperations
     } // }}}
 
     [TestMethod]
+    public void ProductOf2600And6InB255Medium() // {{{
+    {
+      CollectionAssert.AreEqual(ChangeToBase(2600 * 6, 255), MultiplyListsMedium(ChangeToBase(2600, 255), ChangeToBase(6, 255), 255));
+    } // }}}
+
+    [TestMethod]
     public void ProductOf26And2InB2Medium() // {{{
     {
       CollectionAssert.AreEqual(ChangeToBase(26 * 2, 2), MultiplyListsMedium(ChangeToBase(26, 2), ChangeToBase(2, 2), 2));
@@ -321,6 +357,12 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(ChangeToBase(86 / 26, 2), DivideListsMedium(ChangeToBase(86, 2), ChangeToBase(26, 2), 2));
     } // }}}
 
+    [TestMethod]
+    public void Divide8600With2600InB255Medium() // {{{
+    {
+      CollectionAssert.AreEqual(ChangeToBase(8600 / 2600, 255), DivideListsMedium(ChangeToBase(8600, 255), ChangeToBase(2600, 255), 255));
+    } // }}}
+
     List<byte> DivideListsMedium(List<byte> firstList, List<byte> secondList, byte theBase) // {{{
     {
       ulong i = 0;
@@ -345,6 +387,12 @@ namespace BaseTwoOperations
     public void Is27EqualTo26InB2() // {{{
     {
       Assert.AreEqual(false, EqualTo(ChangeToBase(27, 2), ChangeToBase(26, 2)));
+    } // }}}
+
+    [TestMethod]
+    public void Is2601EqualTo2600InB255() // {{{
+    {
+      Assert.AreEqual(false, EqualTo(ChangeToBase(2601, 255), ChangeToBase(2600, 255)));
     } // }}}
 
     bool EqualTo(List<byte> firstList, List<byte> secondList) // {{{
