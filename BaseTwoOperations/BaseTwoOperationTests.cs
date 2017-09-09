@@ -13,6 +13,18 @@ namespace BaseTwoOperations
       CollectionAssert.AreEqual(new List<byte> {1, 1, 0, 1, 0}, ChangeToBase(26, 2));
     } // }}}
 
+    [TestMethod]
+    public void Convert5FromB10toB3() // {{{
+    {
+      CollectionAssert.AreEqual(new List<byte> {1, 2}, ChangeToBase(5, 3));
+    } // }}}
+
+    [TestMethod]
+    public void Convert20FromB10toB16() // {{{
+    {
+      CollectionAssert.AreEqual(new List<byte> {1, 4}, ChangeToBase(20, 16));
+    } // }}}
+
     List<byte> ChangeToBase(ulong number, byte theBase) // {{{
     {
       List<byte> result = new List<byte>();
